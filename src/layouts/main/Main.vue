@@ -7,37 +7,25 @@
       :sidebar-background-image="sidebarBackgroundImage"
     >
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/dashboard">
-        <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
+
+      <sidebar-link to="/applications">
+        <md-icon>apps</md-icon>
+        <p>Applications</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+
+      <sidebar-link to="/users">
         <md-icon>person</md-icon>
-        <p>User Profile</p>
+        <p>Users</p>
       </sidebar-link>
-      <sidebar-link to="/table">
-        <md-icon>content_paste</md-icon>
-        <p>Table list</p>
+
+      <sidebar-link to="/sections">
+        <md-icon>view_agenda</md-icon>
+        <p>Sections</p>
       </sidebar-link>
-      <sidebar-link to="/typography">
-        <md-icon>library_books</md-icon>
-        <p>Typography</p>
-      </sidebar-link>
-      <sidebar-link to="/icons">
-        <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-      </sidebar-link>
-      <sidebar-link to="/upgrade" class="active-pro">
-        <md-icon>unarchive</md-icon>
-        <p>Upgrade to PRO</p>
+
+      <sidebar-link to="/logout" class="absolute bottom-0">
+        <md-icon>exit_to_app</md-icon>
+        <p>Logout</p>
       </sidebar-link>
     </side-bar>
 
@@ -77,6 +65,9 @@ export default {
       sidebarBackground: "green",
       sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg")
     };
+  },
+  methods: {
+
   }
 };
 </script>

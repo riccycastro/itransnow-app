@@ -17,7 +17,6 @@
 import Vue from "vue";
 import App from "./App";
 import store from './store';
-import '@/assets/css/tailwind.css'
 
 import * as VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
@@ -56,6 +55,8 @@ Vue.use(Vuesax, {
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
+
+import '@/assets/css/tailwind.css'
 
 /* eslint-disable no-new */
 new Vue({

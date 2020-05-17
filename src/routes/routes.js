@@ -37,6 +37,13 @@ const router = new VueRouter({
             authRequired: true
           }
         },
+        {
+          path: '/logout',
+          name: 'page-logout',
+          meta: {
+            authRequired: true
+          }
+        }
       ],
     },
     {
@@ -61,16 +68,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to.matched)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    console.log("if not, redirect to login page.")
-    if (store.getters['security/isAuthenticated']) {
-      console.log('authenticated')
+    if (to.matched.some(record => record.name === 'page-logout')) {
+      store.commit('security/AUTHENTICATION_RESET');
+      next('/login')
+    } else if (store.getters['security/isAuthenticated']) {
       next()
     } else {
-      console.log('not authenticated')
       next({
         path: '/login',
         query: {redirect: to.fullPath}
