@@ -17,9 +17,7 @@
 import Vue from "vue";
 import App from "./App";
 import store from './store';
-
-import * as VeeValidate from 'vee-validate';
-Vue.use(VeeValidate);
+import * as filters from './filters';
 
 // router setup
 import router from "./routes/routes";
@@ -29,34 +27,13 @@ import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
 import Notifications from "./components/NotificationPlugin";
 
-// MaterialDashboard plugin
-import MaterialDashboard from "./material-dashboard";
-
-// Vuesax plugin
-import Vuesax from 'vuesax'
-import 'vuesax/dist/vuesax.css' //Vuesax styles
-
 import Chartist from "chartist";
 
 Vue.prototype.$Chartist = Chartist;
 
-Vue.use(MaterialDashboard);
-Vue.use(Vuesax, {
-  theme: {
-    colors:{
-      primary:'#ff9800',
-      success:'#4caf50',
-      danger:'#f44336',
-      warning:'#ef6c00',
-      dark:'rgb(36, 33, 69)'
-    }
-  }
-});
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
-
-import '@/assets/css/tailwind.css'
 
 /* eslint-disable no-new */
 new Vue({

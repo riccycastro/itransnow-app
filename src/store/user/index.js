@@ -1,5 +1,5 @@
 'use strict';
-import userApi from "../../api/user";
+import userApi from '@/api/user';
 
 export default {
   namespaced: true,

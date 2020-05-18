@@ -1,5 +1,5 @@
 'use strict';
-import securityAPI from "../../api/security"
+import securityAPI from "@/api/security"
 
 export default {
   namespaced: true,
@@ -54,17 +54,17 @@ export default {
   },
   actions: {
     async login({commit}, payload) {
-      commit("AUTHENTICATING")
+      commit('AUTHENTICATING')
 
       try {
         const result = await securityAPI.login(payload.email, payload.password);
-        commit("AUTHENTICATING_SUCCESS", result.data);
+        commit('AUTHENTICATING_SUCCESS', result.data);
       } catch (err) {
-        commit("AUTHENTICATING_ERROR", err)
+        commit('AUTHENTICATING_ERROR', err)
       }
     },
     authenticationReset({commit}) {
-      commit("AUTHENTICATION_RESET")
+      commit('AUTHENTICATION_RESET')
     }
   }
 }

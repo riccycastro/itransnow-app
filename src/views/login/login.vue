@@ -9,29 +9,28 @@
                     <form @submit.prevent="loginJWT">
                         <h1 class="font-bold text-2xl">Login</h1>
                         <p class="text-base">Welcome back, please login to your account.</p>
-                        <md-field>
+                        <md-field class="mt-10" :class="messageClass">
                             <label>Email</label>
                             <validation-provider class="w-full" name="email" mode="eager" rules="min:3|required|email"
                                                  v-slot="{ errors }">
-                                <md-input class="w-full" v-model="email" type="email"></md-input>
-                                <span class="text-danger text-sm">{{ errors[0] }}</span>
+                                <md-input class="w-full" v-model="email" type="email" required></md-input>
+                                <span class="md-error text-sm">{{ errors[0] }}</span>
                             </validation-provider>
                         </md-field>
-                        <validation-provider class="w-full" mode="aggressive" name="password" rules="min:6|required"
-                                             v-slot="{ errors }">
-                            <md-field>
-                                <label>Password</label>
-                                <md-input class="w-full" v-model="password" type="password"></md-input>
-                            </md-field>
-                            <span class="text-danger text-sm">{{ errors[0] }}</span>
-                        </validation-provider>
-                        <div class="flex flex-wrap justify-between my-5">
-                            <md-checkbox v-model="rememberMe">Remember Me</md-checkbox>
-                            <a href="/demo/vuexy-vuejs-admin-dashboard-template/demo-2/pages/forgot-password"
-                               class="mt-4">Forgot
-                                Password?</a>
+                        <md-field :class="messageClass">
+                            <label>Password</label>
+                            <validation-provider class="w-full" mode="aggressive" name="password" rules="min:6|required"
+                                                 v-slot="{ errors }">
+                                <md-input class="w-full" v-model="password" type="password" required></md-input>
+                                <span class="md-error text-sm">{{ errors[0] }}</span>
+                            </validation-provider>
+                        </md-field>
+                        <div class="flex flex-wrap justify-between">
+                            <md-checkbox class="mt-0" v-model="rememberMe">Remember Me</md-checkbox>
+                            <a href="/demo/vuexy-vuejs-admin-dashboard-template/demo-2/pages/forgot-password">
+                                Forgot Password?</a>
                         </div>
-                        <div class="flex flex-wrap justify-between my-5">
+                        <div class="flex flex-wrap justify-between mt-6">
                             <vs-button class="w-24" color="primary" type="border">Register</vs-button>
                             <vs-button class="w-24" color="primary" type="filled" @click="loginJWT()"
                                        :disabled="invalid">
@@ -74,13 +73,19 @@
         rememberMe: false,
         showSnackbar: false,
         snackBarText: '',
+        hasMessages: true,
       }
     },
     computed: {
       ...mapGetters({
         hasError: 'security/hasError',
         error: 'security/error'
-      })
+      }),
+      messageClass() {
+        return {
+          'md-invalid': this.hasMessages
+        }
+      }
     },
     methods: {
       ...mapActions({
@@ -114,7 +119,7 @@
             if (redirect !== undefined) {
               await this.$router.push({path: redirect})
             } else {
-              await this.$router.push({name: 'home'})
+              await this.$router.push({name: 'applications'})
             }
           } else {
             if (this.error.response.status === 401) {
