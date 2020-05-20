@@ -1,22 +1,9 @@
-<template>
-  <transition name="fade" mode="out-in">
-    <router-view></router-view>
-  </transition>
+<template >
+    <router-view class="px-4 my-8"></router-view>
 </template>
 <script>
-export default {};
+  export default {
+    name: 'content'
+  };
 </script>
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
-}
 
-.fade-enter,
-  .fade-leave-to
-    /* .fade-leave-active in <2.1.8 */
-
- {
-  opacity: 0;
-}
-</style>

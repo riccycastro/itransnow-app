@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     extend: {
       height: {
+        '17': '4.25rem',
         '112': '28rem',
         '125': '31.25rem',
       },
@@ -22,8 +23,8 @@ module.exports = {
         success: '#4caf50',
         danger: '#f44336',
         warning: '#ef6c00',
-        dark: 'rgb(36, 33, 69)',
-        'light': '#eee'
+        dark: '#242145',
+        'light': '#eeeeee'
       },
       inset: {
         '3': '0.75rem',

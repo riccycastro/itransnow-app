@@ -5,8 +5,9 @@
     shadow-lg-r
     text-white
     hidden fixed lg:block right-0 lg:left-0
-    transition-all duration-300 ease-in-out">
-        <div class="itn-sidebar-wrapper-after w-full h-screen bg-white py-2 px-3">
+    transition-all duration-300 ease-in-out"
+    style="background-image: url('sidebar-2.jpg')">
+        <div class="w-full h-screen bg-gray-900 bg-opacity-75 py-2 px-3">
             <!-- SIDEBAR HEAD -->
             <div class="itn-sidebar-head flex border-b border-gray-700 pl-2 cursor-pointer">
                 <div class="bg-white h-8 w-8 rounded-full my-2 ">
@@ -68,14 +69,6 @@
 </script>
 
 <style scoped>
-    .itn-sidebar-wrapper {
-        background-image: url('../../assets/img/sidebar-2.jpg');
-    }
-
-    .itn-sidebar-wrapper-after {
-        background-color: rgba(27, 27, 27, 0.77);
-    }
-
     .overflow-auto {
         height: calc(100vh - 75px);
     }
