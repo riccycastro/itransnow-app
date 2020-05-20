@@ -28,6 +28,14 @@ const router = new VueRouter({
           }
         },
         {
+          path: '/users',
+          name: 'users',
+          component: () => import('@/views/users/users.vue'),
+          meta: {
+            authRequired: true
+          }
+        },
+        {
           path: '/logout',
           name: 'page-logout',
           meta: {
@@ -65,6 +73,7 @@ router.beforeEach((to, from, next) => {
       store.commit('security/AUTHENTICATION_RESET');
       next('/login')
     } else if (store.getters['security/isAuthenticated']) {
+      store.commit('base/UPDATE_CURRENT_PATH', to.path)
       next()
     } else {
       next({

@@ -4,45 +4,58 @@ import applicationApi from '@/api/application'
 export default {
   namespaced: true,
   state: {
-    applications: [],
-    listCount: 0,
     application: null,
-    error: null
+    applications: [],
+    error: null,
+    listCount: 0,
+    loaded: false,
   },
   getters: {
+    application(state) {
+      return state.application;
+    },
     applications(state) {
       return state.applications;
     },
-    listCount(state) {
-      return state.listCount;
-    },
-    application(state) {
-      return state.application;
+    error(state) {
+      return state.error;
     },
     hasError(state) {
       return state.error !== null;
     },
-    error(state) {
-      return state.error;
-    }
+    listCount(state) {
+      return state.listCount;
+    },
+    loaded(state) {
+      return state.loaded;
+    },
   },
   mutations: {
-    SET_APPLICATIONS(state, applications) {
-      state.applications = applications.data;
-      state.listCount = applications.count;
-    },
     SET_APPLICATION(state, application) {
       state.application = application;
     },
+    SET_APPLICATIONS(state, applications) {
+      state.applications = applications.data;
+      state.listCount = applications.count;
+      state.loaded = true;
+    },
     SET_ERROR(state, error) {
       state.error = error;
+    },
+    /**
+     * @param state
+     * @param {boolean} loaded
+     * @constructor
+     */
+    SET_LOADED(state, loaded) {
+      state.loaded = loaded;
     }
   },
   actions: {
-    async getApplications({commit}) {
+    async deleteApplication({commit, dispatch}, applicationAlias) {
       try {
-        const res = await applicationApi.getApplications();
-        commit('SET_APPLICATIONS', res.data)
+        await applicationApi.deleteApplication(applicationAlias);
+        await dispatch('getApplications');
       } catch (err) {
         commit("SET_ERROR", err)
       }
@@ -59,6 +72,15 @@ export default {
       } catch (err) {
         commit("SET_ERROR", err)
       }
-    }
+    },
+    async getApplications({commit}) {
+      try {
+        commit('SET_LOADED', false);
+        const res = await applicationApi.getApplications();
+        commit('SET_APPLICATIONS', res.data)
+      } catch (err) {
+        commit("SET_ERROR", err)
+      }
+    },
   }
 }

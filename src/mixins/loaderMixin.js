@@ -1,14 +1,21 @@
 export const loaderMixin = {
+  data() {
+    return {
+      loader: null,
+    }
+  },
   methods: {
     $_loaderMixin_loaderStart(container) {
-      this.$vs.loading({
-        container: container,
-        scale: 0.6,
-        type: 'sound',
-      })
+      if (!this.loader) {
+        this.loader = this.$loading.show({
+          container: container,
+          loader: 'spinner',
+        })
+      }
     },
-    $_loaderMixin_loaderStop(container) {
-      this.$vs.loading.close(container + ' > .con-vs-loading')
+    $_loaderMixin_loaderStop() {
+      this.loader.hide();
+      this.loader = null;
     },
   },
 }

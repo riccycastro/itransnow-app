@@ -1,30 +1,27 @@
 <template>
     <div class="content">
         <div class="md-layout">
-            <div class="md-layout-item md-medium-size-100 md-size-33" v-for="application in applications"
-                 :key="application.alias">
-                <md-card class="md-primary" md-theme="green-card">
-                    <md-card-content>
-                        <div class="flex flex-wrap justify-between">
-                            <div class="md-title">
-                                {{application.name}}
-                            </div>
-                            <span class="text-gray-500">
-                                {{getLastUpdate(application)|date}}
-                            </span>
-                        </div>
-                        <div class="md-subhead">
-                            lorem ipsum
-                        </div>
-                    </md-card-content>
-                    <md-card-actions>
-                        <vs-button class="mr-3 w-20" color="primary" type="filled" icon="edit">Edit</vs-button>
-                        <vs-button class="w-20" color="danger" type="filled" icon="delete">Delete</vs-button>
-                    </md-card-actions>
-                </md-card>
-            </div>
-            <vs-button class="fixed bottom-24 right-3" radius color="warning" type="filled" icon="add" size="large">
-            </vs-button>
+            <md-empty-state
+                    v-if="loaded && !applications.length"
+                    md-icon="devices_other"
+                    md-label="Create your first application"
+                    md-description="Creating project, you'll be able to manage the translations.">
+                <md-button class="md-primary md-raised">Create first application</md-button>
+            </md-empty-state>
+            <application-item
+                    v-for="application in applications"
+                    v-bind:application="application"
+                    :key="application.alias"></application-item>
+
+<!--            <vs-button-->
+<!--                    class="fixed bottom-24 right-3"-->
+<!--                    radius-->
+<!--                    color="warning"-->
+<!--                    type="filled"-->
+<!--                    icon="add"-->
+<!--                    size="large"-->
+<!--                    title="create a new application">-->
+<!--            </vs-button>-->
         </div>
     </div>
 </template>
@@ -32,9 +29,18 @@
 <script>
 
   import {mapActions, mapGetters} from 'vuex';
+  import ApplicationItem from '@/components/application/application-item.vue';
 
   export default {
     name: "applications",
+    components: {
+      ApplicationItem
+    },
+    data() {
+      return {
+        first: true
+      }
+    },
     async created() {
       await this.getApplications();
     },
@@ -42,19 +48,13 @@
       ...mapGetters({
         applications: 'application/applications',
         error: 'application/error',
+        loaded: 'application/loaded'
       })
     },
     methods: {
       ...mapActions({
         getApplications: 'application/getApplications'
       }),
-      getLastUpdate(application) {
-        if (application.updatedAt) {
-          return application.updatedAt
-        }
-
-        return application.createdAt;
-      }
     },
   }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex content-center flex-wrap bg-gray-200 h-screen">
+    <div class="flex content-center flex-wrap bg-gray-200 h-screen" ref="loadingContainer">
         <div class="h-125 mx-auto flex p-6 bg-white shadow-xl grid grid-cols-1 lg:grid-cols-2 w-11/12 sm:w-3/5 md:w-1/2 lg:w-3/4 xl:w-3/5">
             <div class="hidden lg:block">
                 <img class="mt-20" src="@/assets/img/login_form.png" alt="ChitChat Logo">
@@ -30,12 +30,12 @@
                             <a href="/demo/vuexy-vuejs-admin-dashboard-template/demo-2/pages/forgot-password">
                                 Forgot Password?</a>
                         </div>
-                        <div class="flex flex-wrap justify-between mt-6">
-                            <vs-button class="w-24" color="primary" type="border">Register</vs-button>
-                            <vs-button class="w-24" color="primary" type="filled" @click="loginJWT()"
+                        <div class="mt-6">
+                            <md-button class="md-primary w-24 mr-3" @click="loginJWT()"
                                        :disabled="invalid">
                                 Login
-                            </vs-button>
+                            </md-button>
+                            <md-button class="w-24">Register</md-button>
                         </div>
                         <md-snackbar md-position="center" :md-duration="4000" :md-active.sync="showSnackbar"
                                      md-persistent>
@@ -99,7 +99,7 @@
             return;
           }
 
-          this.$_loaderMixin_loaderStart('.full-page')
+          this.$_loaderMixin_loaderStart(this.$refs.loadingContainer)
 
           const payload = {
             email: this.email,
@@ -113,7 +113,7 @@
             this.getCurrentUserData()
           }
 
-          this.$_loaderMixin_loaderStop('.full-page')
+          this.$_loaderMixin_loaderStop()
 
           if (!this.hasError) {
             if (redirect !== undefined) {

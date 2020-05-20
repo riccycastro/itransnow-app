@@ -5,8 +5,9 @@ const state = {
     about: '',
     photoURL: '',
     status: '',
-    userRole: ''
+    userRole: '',
   },
+  currentPath: '',
 };
 
 export default state;
