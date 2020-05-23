@@ -1,5 +1,5 @@
 <template >
-    <router-view class="px-4 my-8"></router-view>
+    <router-view class="tw-px-4 tw-my-8"></router-view>
 </template>
 <script>
   export default {

@@ -8,6 +8,7 @@ const state = {
     userRole: '',
   },
   currentPath: '',
+  showSideBar: false,
 };
 
 export default state;

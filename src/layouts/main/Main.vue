@@ -1,14 +1,12 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': false }">
-    <notifications></notifications>
-
+  <div>
     <side-bar :side-bar-data="sideBarData"></side-bar>
 
-    <div class="w-full lg:w-content relative float-right bg-light transition-all duration-300 ease-in-out">
+    <div class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-h-screen">
       <tool-bar></tool-bar>
       <main-content></main-content>
 
-      <content-footer v-if="!$route.meta.hideFooter"></content-footer>
+      <content-footer></content-footer>
     </div>
   </div>
 </template>
@@ -29,20 +27,22 @@
     data() {
       return {
         sidebarBackground: "green",
-        sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg"),
         sideBarData: {
           head: {
-            logo: require('@/assets/img/vue-logo.png'),
+            logo: require('@/assets/img/logo.png'),
             name: 'iTranslateNow'
           },
           body: {
+            backgroundImage: require("@/assets/img/sidebar-2.jpg"),
             items: [
               {
+                alias: 'apps',
                 icon: 'apps',
                 text: 'Applications',
                 path: '/applications',
               },
               {
+                alias: 'users',
                 icon: 'person',
                 text: 'Users',
                 path: '/users',

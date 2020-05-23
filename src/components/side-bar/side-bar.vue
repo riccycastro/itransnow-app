@@ -1,44 +1,51 @@
 <template>
-    <div class="itn-sidebar-wrapper
-    bg-center bg-top bg-no-repeat bg-cover
-    h-screen z-50 w-59
-    shadow-lg-r
-    text-white
-    hidden fixed lg:block right-0 lg:left-0
-    transition-all duration-300 ease-in-out"
-    style="background-image: url('sidebar-2.jpg')">
-        <div class="w-full h-screen bg-gray-900 bg-opacity-75 py-2 px-3">
-            <!-- SIDEBAR HEAD -->
-            <div class="itn-sidebar-head flex border-b border-gray-700 pl-2 cursor-pointer">
-                <div class="bg-white h-8 w-8 rounded-full my-2 ">
-                    <img class="rounded-full" :src="sideBarData.head.logo">
+    <div>
+        <div class="itn-sidebar-wrapper
+    tw-bg-center tw-bg-top tw-bg-no-repeat tw-bg-cover
+    tw-h-screen tw-z-50 tw-w-59
+    tw-shadow-lg-r
+    tw-text-white
+    tw-fixed lg:tw-block tw-right-0 lg:tw-left-0
+    tw-transition-all tw-duration-1000 tw-ease-in-out"
+             :class="{'hidden': showSideBar}"
+             :style="{backgroundImage: `url('${backgroundImage}')` }">
+            <div class="tw-w-full tw-h-screen tw-bg-gray-900 tw-bg-opacity-75 tw-py-2 tw-px-3">
+                <!-- SIDEBAR HEAD -->
+                <div class="itn-sidebar-head tw-flex tw-border-b tw-border-gray-700 tw-pl-2 tw-cursor-pointer">
+                    <div class="tw-bg-white tw-h-8 tw-w-8 tw-rounded-full tw-my-2 ">
+                        <img class="tw-rounded-full" :src="logo">
+                    </div>
+                    <div class="tw-h-10 tw-ml-3 tw-mt-3">
+                        <h1 class="tw-text-base">{{ name }}</h1>
+                    </div>
                 </div>
-                <div class="h-10 ml-3 mt-3">
-                    <h1 class="text-base">{{ sideBarData.head.name.toUpperCase() }}</h1>
+                <!-- SIDEBAR BODY -->
+                <div class="tw-overflow-auto">
+                    <div class="itn-sidebar-body tw-mt-3 tw-pt-3">
+                        <!-- SIDEBAR ITEMS -->
+                        <ul>
+                            <side-bar-menu-item v-for="item of sideBarData.body.items"
+                                                v-bind:menu-item="item" :key="item.alias"></side-bar-menu-item>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <!-- SIDEBAR BODY -->
-            <div class="overflow-auto">
-                <div class="itn-sidebar-body mt-3 pt-3">
-                    <!-- SIDEBAR ITEMS -->
-                    <ul >
-                        <side-bar-menu-item v-for="item of sideBarData.body.items"
-                                            v-bind:menu-item="item"></side-bar-menu-item>
-                    </ul>
-                </div>
-            </div>
-            <!-- SIDEBAR FOOTER -->
-            <div class="itn-sidebar-footer mb-0 pt-3 pl-2">
+                <!-- SIDEBAR FOOTER -->
+                <div class="itn-sidebar-footer tw-mb-0 tw-pt-3 tw-pl-2">
 
+                </div>
+                <!--      <div class="py-2">body</div>-->
             </div>
-            <!--      <div class="py-2">body</div>-->
         </div>
+        <div class="tw-absolute tw-w-full tw-h-full tw-z-40 tw-bg-gray-700 tw-bg-opacity-25 lg:tw-hidden"
+        :class="{'hidden': showSideBar}"
+        @click="setShowSideBar()"></div>
     </div>
 </template>
 
 <script>
 
   import SideBarMenuItem from './side-bar-menu-item.vue';
+  import {mapActions, mapGetters} from "vuex";
 
   export default {
     name: "side-bar",
@@ -50,12 +57,10 @@
     },
     data() {
       return {
-        menu: [
-          {
-            icon: 'apps',
-            text: 'Applications'
-          }
-        ]
+        name: this.sideBarData.head.name.toUpperCase(),
+        items: this.sideBarData.body.items,
+        backgroundImage: this.sideBarData.body.backgroundImage,
+        logo: this.sideBarData.head.logo,
       }
     },
     mounted() {
@@ -64,7 +69,20 @@
           items: []
         };
       }
-    }
+    },
+    computed: {
+      ...mapGetters({
+        showSideBar: 'base/showSideBar'
+      }),
+    },
+    methods: {
+      ...mapActions({
+        storeSetShowSideBar: 'base/setShowSideBar'
+      }),
+      setShowSideBar() {
+        this.storeSetShowSideBar(!this.showSideBar)
+      }
+    },
   }
 </script>
 

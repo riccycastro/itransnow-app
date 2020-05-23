@@ -1,47 +1,69 @@
 <template>
-    <div class="flex content-center flex-wrap bg-gray-200 h-screen" ref="loadingContainer">
-        <div class="h-125 mx-auto flex p-6 bg-white shadow-xl grid grid-cols-1 lg:grid-cols-2 w-11/12 sm:w-3/5 md:w-1/2 lg:w-3/4 xl:w-3/5">
-            <div class="hidden lg:block">
-                <img class="mt-20" src="@/assets/img/login_form.png" alt="ChitChat Logo">
+    <div class="tw-flex tw-content-center tw-flex-wrap tw-bg-gray-200 tw-h-screen">
+        <!--       tw-p-6 -->
+        <div class="
+        tw-mx-auto tw-h-125 tw-w-11/12 sm:tw-w-3/5 md:tw-w-1/2 lg:tw-w-3/4 xl:tw-w-3/5
+        tw-bg-white tw-shadow-xl">
+            <div class="tw-hidden lg:tw-inline-block lg:tw-w-3/5 tw-float-left">
+                <img class="" src="@/assets/img/login_form.png">
             </div>
-            <div class="h-112">
+            <div class="
+            h-112 lg:tw-w-2/5
+            tw-inline-block tw-float-right tw-p-6 lg:tw-p-3">
                 <ValidationObserver v-slot="{ invalid }" ref="form">
                     <form @submit.prevent="loginJWT">
-                        <h1 class="font-bold text-2xl">Login</h1>
-                        <p class="text-base">Welcome back, please login to your account.</p>
-                        <md-field class="mt-10" :class="messageClass">
-                            <label>Email</label>
-                            <validation-provider class="w-full" name="email" mode="eager" rules="min:3|required|email"
-                                                 v-slot="{ errors }">
-                                <md-input class="w-full" v-model="email" type="email" required></md-input>
-                                <span class="md-error text-sm">{{ errors[0] }}</span>
-                            </validation-provider>
-                        </md-field>
-                        <md-field :class="messageClass">
-                            <label>Password</label>
-                            <validation-provider class="w-full" mode="aggressive" name="password" rules="min:6|required"
-                                                 v-slot="{ errors }">
-                                <md-input class="w-full" v-model="password" type="password" required></md-input>
-                                <span class="md-error text-sm">{{ errors[0] }}</span>
-                            </validation-provider>
-                        </md-field>
-                        <div class="flex flex-wrap justify-between">
-                            <md-checkbox class="mt-0" v-model="rememberMe">Remember Me</md-checkbox>
-                            <a href="/demo/vuexy-vuejs-admin-dashboard-template/demo-2/pages/forgot-password">
-                                Forgot Password?</a>
-                        </div>
-                        <div class="mt-6">
-                            <md-button class="md-primary w-24 mr-3" @click="loginJWT()"
-                                       :disabled="invalid">
-                                Login
-                            </md-button>
-                            <md-button class="w-24">Register</md-button>
-                        </div>
-                        <md-snackbar md-position="center" :md-duration="4000" :md-active.sync="showSnackbar"
-                                     md-persistent>
-                            <span>{{snackBarText}}</span>
-                            <md-button class="md-primary" @click="showSnackbar = false">close</md-button>
-                        </md-snackbar>
+                        <h1 class="tw-font-bold tw-text-2xl">Login</h1>
+                        <p class="tw-text-base">Welcome back, please login to your account.</p>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <validation-provider name="email" mode="eager"
+                                                         rules="min:3|required|email"
+                                                         v-slot="{ errors }">
+                                        <v-text-field
+                                                v-model="email"
+                                                label="Email"
+                                                type="email"
+                                                hide-details="auto"></v-text-field>
+                                        <span class="tw-text-danger tw-text-sm">{{ errors[0] }}</span>
+                                    </validation-provider>
+                                </v-col>
+                                <v-col cols="12">
+                                    <validation-provider mode="aggressive" name="password"
+                                                         rules="min:6|required"
+                                                         v-slot="{ errors }">
+                                        <v-text-field
+                                                v-model="password"
+                                                label="password"
+                                                type="password"
+                                                hide-details="auto"></v-text-field>
+                                        <span class="tw-text-danger tw-text-sm">{{ errors[0] }}</span>
+                                    </validation-provider>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-checkbox class="tw-mt-0"
+                                                v-model="rememberMe"
+                                                label="Remember Me"></v-checkbox>
+                                </v-col>
+                                <v-col cols="6" class="tw-text-right">
+                                    <a href="#">
+                                        Forgot Password?
+                                    </a>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-btn class="tw-mr-2 tw-w-24" outlined color="primary">
+                                        Register
+                                    </v-btn>
+                                    <v-btn
+                                            class="tw-w-24"
+                                            color="primary"
+                                            :disabled="invalid"
+                                            @click="loginJWT()">
+                                        Login
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-container>
                     </form>
                 </ValidationObserver>
             </div>
@@ -74,6 +96,7 @@
         showSnackbar: false,
         snackBarText: '',
         hasMessages: true,
+
       }
     },
     computed: {
@@ -99,7 +122,7 @@
             return;
           }
 
-          this.$_loaderMixin_loaderStart(this.$refs.loadingContainer)
+          // this.$_loaderMixin_loaderStart(this.$refs.loadingContainer)
 
           const payload = {
             email: this.email,
@@ -113,7 +136,7 @@
             this.getCurrentUserData()
           }
 
-          this.$_loaderMixin_loaderStop()
+          // this.$_loaderMixin_loaderStop()
 
           if (!this.hasError) {
             if (redirect !== undefined) {

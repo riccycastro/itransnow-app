@@ -1,12 +1,12 @@
 <template>
     <li
-            :class="[`pl-4 py-2 rounded-sm flex mb-3 cursor-${cursor}`, {'bg-success': isActive, 'hover:bg-gray-400 hover:bg-opacity-25': !isActive}]"
+            :class="[`tw-pl-4 tw-py-2 tw-rounded-sm tw-flex tw-mb-3 tw-cursor-${cursor}`, {'tw-bg-success': isActive, 'hover:tw-bg-gray-400 hover:tw-bg-opacity-25': !isActive}]"
             @click="goTo()">
-        <div class="flex content-center mr-4">
+        <div class="tw-mt-1 tw-mr-4">
             <i class="material-icons">{{icon}}</i>
         </div>
-        <div class="flex content-center">
-            <p class="font-light text-sm">{{text}}</p>
+        <div class="tw-flex tw-content-center tw-flex-wrap">
+            <p class="tw-font-light tw-text-sm tw-mb-0 mb-0">{{text}}</p>
         </div>
     </li>
 </template>

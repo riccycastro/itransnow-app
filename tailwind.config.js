@@ -1,4 +1,5 @@
 module.exports = {
+  prefix: 'tw-',
   purge: [],
   theme: {
     extend: {
@@ -24,7 +25,7 @@ module.exports = {
         danger: '#f44336',
         warning: '#ef6c00',
         dark: '#242145',
-        'light': '#eeeeee'
+        light: '#eeeeee'
       },
       inset: {
         '3': '0.75rem',

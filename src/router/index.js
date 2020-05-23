@@ -49,7 +49,7 @@ const router = new VueRouter({
       // FULL PAGE LAYOUT ROUTES
       // =============================================================================
       path: "",
-      component: () => import("@/layouts/full-page/FullPage.vue"),
+      component: () => import("@/layouts/full-page/full-page.vue"),
       name: 'fullPage',
       children: [
         {

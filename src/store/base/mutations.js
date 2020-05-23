@@ -1,6 +1,14 @@
 const mutations = {
   /**
    * @param state
+   * @param {boolean} showSideBar
+   * @constructor
+   */
+  SET_SHOW_SIDE_BAR(state, showSideBar){
+    state.showSideBar = showSideBar
+  },
+  /**
+   * @param state
    * @param {string} currentPath
    * @constructor
    */

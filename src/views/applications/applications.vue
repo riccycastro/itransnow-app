@@ -1,16 +1,16 @@
 <template>
-    <div class="content">
-        <div class="md-layout">
-            <md-empty-state
-                    v-if="loaded && !applications.length"
-                    md-icon="devices_other"
-                    md-label="Create your first application"
-                    md-description="Creating project, you'll be able to manage the translations.">
-                <md-button class="md-primary md-raised">Create first application</md-button>
-            </md-empty-state>
+    <div class="tw-content">
+        <div class="tw-md-layout tw-grid md:tw-grid-cols-3 tw-gap-4 tw-grid-cols-1">
+<!--            <md-empty-state-->
+<!--                    v-if="loaded && !applications.length"-->
+<!--                    md-icon="devices_other"-->
+<!--                    md-label="Create your first application"-->
+<!--                    md-description="Creating project, you'll be able to manage the translations.">-->
+<!--                <md-button class="md-primary md-raised">Create first application</md-button>-->
+<!--            </md-empty-state>-->
             <application-item
                     v-for="application in applications"
-                    v-bind:application="application"
+                    v-bind:applicationData="application"
                     :key="application.alias"></application-item>
 
 <!--            <vs-button-->
