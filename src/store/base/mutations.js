@@ -1,10 +1,30 @@
+const shortid = require('shortid');
+
 const mutations = {
+  SET_NOTIFICATION(state, notification) {
+    notification.uid = shortid.generate();
+    state.notifications.push(notification);
+  },
+  SET_NOTIFICATIONS(state, notifications) {
+    state.notifications = notifications;
+  },
+  HANDLE_HTTP_NOTIFICATION_ERROR(state, err) {
+    const message = err.response.status === 500 ?
+      'Internal Server Error, please try again later' :
+      (err.response.data.message || 'Unknown error, try again later')
+
+    state.notifications.push({
+      type: 'error',
+      message: message,
+      fixed: err.response.status === 500
+    });
+  },
   /**
    * @param state
    * @param {boolean} showSideBar
    * @constructor
    */
-  SET_SHOW_SIDE_BAR(state, showSideBar){
+  SET_SHOW_SIDE_BAR(state, showSideBar) {
     state.showSideBar = showSideBar
   },
   /**

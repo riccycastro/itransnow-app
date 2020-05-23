@@ -9,6 +9,7 @@ const state = {
   },
   currentPath: '',
   showSideBar: false,
+  notifications: [],
 };
 
 export default state;
