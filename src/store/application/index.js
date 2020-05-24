@@ -53,6 +53,7 @@ export default {
   },
   actions: {
     async deleteApplication({commit, dispatch}, applicationAlias) {
+      commit("SET_ERROR", null)
       try {
         await applicationApi.deleteApplication(applicationAlias);
         await dispatch('getApplications');
@@ -66,6 +67,7 @@ export default {
      * @returns {Promise<void>}
      */
     async getApplication({commit}, applicationAlias) {
+      commit("SET_ERROR", null)
       try {
         const res = await applicationApi.getApplication(applicationAlias)
         commit('SET_APPLICATION', res.data)
@@ -74,6 +76,7 @@ export default {
       }
     },
     async getApplications({commit}) {
+      commit("SET_ERROR", null)
       try {
         commit('SET_LOADED', false);
         const res = await applicationApi.getApplications();
@@ -82,5 +85,19 @@ export default {
         commit("SET_ERROR", err)
       }
     },
+    /**
+     * @param commit
+     * @param {Object} application
+     * @param {string}applicationAlias
+     */
+    async updateApplication({commit}, application) {
+      commit("SET_ERROR", null)
+      try {
+        return await applicationApi.updateApplication(application);
+      } catch (err) {
+        commit("SET_ERROR", err)
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
+      }
+    }
   }
 }

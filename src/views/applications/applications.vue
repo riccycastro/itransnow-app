@@ -1,6 +1,7 @@
 <template>
     <div class="tw-content">
         <div class="tw-md-layout tw-grid md:tw-grid-cols-3 tw-gap-4 tw-grid-cols-1">
+            <loading :showLoading="showLoading"></loading>
 <!--            <md-empty-state-->
 <!--                    v-if="loaded && !applications.length"-->
 <!--                    md-icon="devices_other"-->
@@ -30,19 +31,24 @@
 
   import {mapActions, mapGetters} from 'vuex';
   import ApplicationItem from '@/components/application/application-item.vue';
+  import Loading from '@/components/loading/loading.vue';
 
   export default {
     name: "applications",
     components: {
+      Loading,
       ApplicationItem
     },
     data() {
       return {
-        first: true
+        first: true,
+        showLoading: false
       }
     },
     async created() {
+      this.showLoading = true;
       await this.getApplications();
+      this.showLoading = false;
     },
     computed: {
       ...mapGetters({

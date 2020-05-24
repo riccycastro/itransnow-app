@@ -1,6 +1,7 @@
 <template>
   <div>
     <side-bar :side-bar-data="sideBarData"></side-bar>
+    <notification></notification>
 
     <div class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-h-screen">
       <tool-bar></tool-bar>
@@ -12,13 +13,15 @@
 </template>
 
 <script>
-  import ContentFooter from "./ContentFooter.vue";
-  import MainContent from "./Content.vue";
-  import SideBar from "@/components/side-bar/side-bar.vue";
+  import ContentFooter from './ContentFooter.vue';
+  import MainContent from './Content.vue';
+  import SideBar from '@/components/side-bar/side-bar.vue';
   import ToolBar from '@/components/tool-bar/tool-bar.vue';
+  import Notification from '@/components/notification/notification';
 
   export default {
     components: {
+      Notification,
       MainContent,
       ContentFooter,
       SideBar,

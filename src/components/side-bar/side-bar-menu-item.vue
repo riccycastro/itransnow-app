@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
+  import {mapActions, mapGetters} from "vuex";
 
   export default {
     name: "side-bar-menu-item",
@@ -36,8 +36,12 @@
       }
     },
     methods: {
+      ...mapActions({
+        storeSetShowSideBar: 'base/setShowSideBar'
+      }),
       async goTo() {
-        await this.$router.push({path: this.path})
+        this.storeSetShowSideBar(false);
+        await this.$router.push({path: this.path});
       }
     },
   }

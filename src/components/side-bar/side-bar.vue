@@ -7,7 +7,7 @@
     tw-text-white
     tw-fixed lg:tw-block tw-right-0 lg:tw-left-0
     tw-transition-all tw-duration-1000 tw-ease-in-out"
-             :class="{'hidden': showSideBar}"
+             :class="{'tw-hidden': !showSideBar}"
              :style="{backgroundImage: `url('${backgroundImage}')` }">
             <div class="tw-w-full tw-h-screen tw-bg-gray-900 tw-bg-opacity-75 tw-py-2 tw-px-3">
                 <!-- SIDEBAR HEAD -->
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="tw-absolute tw-w-full tw-h-full tw-z-40 tw-bg-gray-700 tw-bg-opacity-25 lg:tw-hidden"
-        :class="{'hidden': showSideBar}"
+        :class="{'tw-hidden': !showSideBar}"
         @click="setShowSideBar()"></div>
     </div>
 </template>

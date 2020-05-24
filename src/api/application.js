@@ -17,5 +17,8 @@ export default {
    */
   deleteApplication(applicationAlias) {
     return api.delete(applicationUrl + applicationAlias)
+  },
+  updateApplication(application) {
+    return api.patch(applicationUrl + application.alias, application)
   }
 }
