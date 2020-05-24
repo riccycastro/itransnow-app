@@ -93,7 +93,8 @@ export default {
     async updateApplication({commit}, application) {
       commit("SET_ERROR", null)
       try {
-        return await applicationApi.updateApplication(application);
+        const res = await applicationApi.updateApplication(application);
+        return res.data;
       } catch (err) {
         commit("SET_ERROR", err)
         commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})

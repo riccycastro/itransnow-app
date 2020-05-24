@@ -1,6 +1,6 @@
 <template>
     <div class="tw-content">
-        <div class="tw-md-layout tw-grid md:tw-grid-cols-3 tw-gap-4 tw-grid-cols-1">
+        <div class="tw-md-layout tw-grid lg:tw-grid-cols-3 md:tw-grid-cols-2 tw-gap-4 tw-grid-cols-1">
             <loading :showLoading="showLoading"></loading>
 <!--            <md-empty-state-->
 <!--                    v-if="loaded && !applications.length"-->
@@ -14,15 +14,15 @@
                     v-bind:applicationData="application"
                     :key="application.alias"></application-item>
 
-<!--            <vs-button-->
-<!--                    class="fixed bottom-24 right-3"-->
-<!--                    radius-->
-<!--                    color="warning"-->
-<!--                    type="filled"-->
-<!--                    icon="add"-->
-<!--                    size="large"-->
-<!--                    title="create a new application">-->
-<!--            </vs-button>-->
+            <!-- <vs-button -->
+            <!-- class="fixed bottom-24 right-3" -->
+            <!-- radius -->
+            <!-- color="warning" -->
+            <!-- type="filled" -->
+            <!-- icon="add" -->
+            <!-- size="large" -->
+            <!-- title="create a new application"> -->
+            <!-- </vs-button> -->
         </div>
     </div>
 </template>
