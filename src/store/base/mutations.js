@@ -14,6 +14,7 @@ const mutations = {
       (err.response.data.message || 'Unknown error, try again later')
 
     state.notifications.push({
+      uid: shortid.generate(),
       type: 'error',
       message: message,
       fixed: err.response.status === 500

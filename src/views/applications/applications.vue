@@ -1,48 +1,53 @@
 <template>
     <div class="tw-content">
+        <empty-state
+                icon="important_devices"
+                title="Create your first application"
+                description="Create your first project so you can add your translations"
+                v-if="loaded && !applications.length">
+            <v-btn color="primary" @click="showForm = true">Create first application</v-btn>
+        </empty-state>
         <div class="tw-md-layout tw-grid lg:tw-grid-cols-3 md:tw-grid-cols-2 tw-gap-4 tw-grid-cols-1">
             <loading :showLoading="showLoading"></loading>
-<!--            <md-empty-state-->
-<!--                    v-if="loaded && !applications.length"-->
-<!--                    md-icon="devices_other"-->
-<!--                    md-label="Create your first application"-->
-<!--                    md-description="Creating project, you'll be able to manage the translations.">-->
-<!--                <md-button class="md-primary md-raised">Create first application</md-button>-->
-<!--            </md-empty-state>-->
             <application-item
                     v-for="application in applications"
                     v-bind:applicationData="application"
                     :key="application.alias"></application-item>
-
-            <!-- <vs-button -->
-            <!-- class="fixed bottom-24 right-3" -->
-            <!-- radius -->
-            <!-- color="warning" -->
-            <!-- type="filled" -->
-            <!-- icon="add" -->
-            <!-- size="large" -->
-            <!-- title="create a new application"> -->
-            <!-- </vs-button> -->
         </div>
+        <v-btn class="tw-fixed tw-bottom-24 tw-right-3" color="primary" fab dark @click="showForm = true">
+            <v-icon>mdi-plus</v-icon>
+        </v-btn>
+        <application-create-form
+                :showCreateForm="showForm"
+                :showLoading="false"
+                @triggerShowCreateForm="triggerShowCreateForm"
+                @triggerShowLoading="triggerShowLoading"
+                @setApplication="setApplication"
+        ></application-create-form>
     </div>
 </template>
 
 <script>
 
   import {mapActions, mapGetters} from 'vuex';
-  import ApplicationItem from '@/components/application/application-item.vue';
   import Loading from '@/components/loading/loading.vue';
+  import ApplicationCreateForm from '@/components/application/application-create-form.vue';
+  import ApplicationItem from '@/components/application/application-item';
+  import EmptyState from '@/components/empty-state/empty-state';
 
   export default {
     name: "applications",
     components: {
+      EmptyState,
+      ApplicationItem,
       Loading,
-      ApplicationItem
+      ApplicationCreateForm
     },
     data() {
       return {
         first: true,
-        showLoading: false
+        showLoading: false,
+        showForm: false
       }
     },
     async created() {
@@ -59,8 +64,20 @@
     },
     methods: {
       ...mapActions({
-        getApplications: 'application/getApplications'
+        getApplications: 'application/getApplications',
+        setNotification: 'base/setNotification',
       }),
+      triggerShowCreateForm() {
+        this.showForm = !this.showForm;
+      },
+      triggerShowLoading() {
+      },
+      setApplication() {
+        this.setNotification({
+          type: 'success',
+          message: `Application created with success.`
+        })
+      },
     },
   }
 </script>

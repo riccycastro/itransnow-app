@@ -3,7 +3,7 @@
     <side-bar :side-bar-data="sideBarData"></side-bar>
     <notification></notification>
 
-    <div class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-h-screen">
+    <div class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-min-h-screen">
       <tool-bar></tool-bar>
       <main-content></main-content>
 

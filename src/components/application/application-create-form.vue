@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showEditForm" persistent max-width="600px">
+    <v-dialog v-model="showCreateForm" persistent max-width="600px">
         <v-card>
             <ValidationObserver v-slot="{ invalid }" ref="form">
                 <loading :showLoading="showLoading"></loading>
@@ -9,17 +9,13 @@
                 <v-card-text>
                     <v-container>
                         <v-row>
-                            <v-col cols="12" md="6">
+                            <v-col cols="12" md="12">
                                 <validation-provider mode="aggressive" name="Name"
                                                      rules="min:6|required"
                                                      v-slot="{ errors }">
                                     <v-text-field label="Name" required v-model="application.name"></v-text-field>
                                     <span class="tw-text-danger tw-text-sm">{{ errors[0] }}</span>
                                 </validation-provider>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Alias" v-model="aliasShadow" disabled
-                                              hint="Only alphanumeric and '_' value"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="12">
                                 <v-checkbox class="mt-0"
@@ -31,8 +27,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn text @click="onCloseEdit()">Close</v-btn>
-                    <v-btn color="primary" text @click="onEdit()" :disabled="!(changed && !invalid)">
+                    <v-btn text @click="onCloseCreate()">Close</v-btn>
+                    <v-btn color="primary" text @click="onCreate()" :disabled="!(!invalid)">
                         Save
                     </v-btn>
                 </v-card-actions>
@@ -47,22 +43,19 @@
   import Loading from "../loading/loading";
 
   export default {
-    name: "application-edit-form",
+    name: "application-create-form",
     components: {
       Loading,
       ValidationProvider,
       ValidationObserver,
     },
     props: {
-      showEditForm: Boolean,
+      showCreateForm: Boolean,
       showLoading: Boolean,
-      application: Object,
     },
     data() {
       return {
-        //we don't want to allow user to change application alias
-        aliasShadow: this.application.alias,
-        applicationBackup: JSON.stringify(this.application),
+        application: {},
       }
     },
     computed: {
@@ -70,33 +63,29 @@
         hasError: 'application/hasError',
         error: 'application/error'
       }),
-      changed: function () {
-        return this.applicationBackup !== JSON.stringify(this.application);
-      }
     },
     methods: {
       ...mapActions({
-        updateApplication: 'application/updateApplication',
+        createApplication: 'application/createApplication',
         setNotification: 'base/setNotification',
       }),
-      onCloseEdit() {
-        this.$emit('updateApplication', JSON.parse(this.applicationBackup));
-        this.$emit('triggerShowEditForm');
+      onCloseCreate() {
+        this.$emit('triggerShowCreateForm');
       },
-      async onEdit() {
-
+      async onCreate() {
         this.showLoading || this.$emit('triggerShowLoading')
-        const updatedApplication = await this.updateApplication(this.application);
+        this.application.alias = this.application.name
+        await this.createApplication(this.application);
 
         if (this.hasError) {
-          this.onCloseEdit();
+          this.onCloseCreate();
         } else {
           this.setNotification({
             type: 'success',
             message: 'Updated with success!'
           });
-          this.$emit('triggerShowEditForm');
-          this.$emit('updateApplication', updatedApplication);
+          this.$emit('triggerShowCreateForm');
+          this.$emit('setApplication');
         }
 
         this.$emit('triggerShowLoading')

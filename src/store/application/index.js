@@ -31,6 +31,9 @@ export default {
     },
   },
   mutations: {
+    ADD_APPLICATION(state, applicaption) {
+      state.applications.push(applicaption);
+    },
     SET_APPLICATION(state, application) {
       state.application = application;
     },
@@ -52,12 +55,23 @@ export default {
     }
   },
   actions: {
+    async createApplication({commit, dispatch}, application) {
+      try {
+        const applicationCreated = await applicationApi.createApplication(application);
+        await dispatch('getApplications');
+        return applicationCreated.data;
+      } catch (err) {
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
+        commit("SET_ERROR", err)
+      }
+    },
     async deleteApplication({commit, dispatch}, applicationAlias) {
       commit("SET_ERROR", null)
       try {
         await applicationApi.deleteApplication(applicationAlias);
         await dispatch('getApplications');
       } catch (err) {
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
         commit("SET_ERROR", err)
       }
     },

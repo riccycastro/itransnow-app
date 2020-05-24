@@ -23,7 +23,7 @@
                 <div class="tw-overflow-auto">
                     <div class="itn-sidebar-body tw-mt-3 tw-pt-3">
                         <!-- SIDEBAR ITEMS -->
-                        <ul>
+                        <ul class="pl-0 tw-pl-0">
                             <side-bar-menu-item v-for="item of sideBarData.body.items"
                                                 v-bind:menu-item="item" :key="item.alias"></side-bar-menu-item>
                         </ul>

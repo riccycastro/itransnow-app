@@ -59,6 +59,7 @@ export default {
       try {
         const result = await securityAPI.login(payload.email, payload.password);
         commit('AUTHENTICATING_SUCCESS', result.data);
+        commit('base/SET_NOTIFICATIONS', []);
       } catch (err) {
         commit('AUTHENTICATING_ERROR', err)
       }

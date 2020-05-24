@@ -3,6 +3,9 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
+      fontSize: {
+        '10xl': '8rem',
+      },
       height: {
         '17': '4.25rem',
         '112': '28rem',

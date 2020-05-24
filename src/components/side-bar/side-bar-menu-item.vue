@@ -40,6 +40,8 @@
         storeSetShowSideBar: 'base/setShowSideBar'
       }),
       async goTo() {
+        if (this.isActive) return;
+
         this.storeSetShowSideBar(false);
         await this.$router.push({path: this.path});
       }
