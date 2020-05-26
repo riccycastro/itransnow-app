@@ -13,8 +13,13 @@
                                 <validation-provider mode="aggressive" name="Name"
                                                      rules="min:6|required"
                                                      v-slot="{ errors }">
-                                    <v-text-field label="Name" required v-model="application.name"></v-text-field>
-                                    <span class="tw-text-danger tw-text-sm">{{ errors[0] }}</span>
+                                    <v-text-field
+                                            label="Name"
+                                            required
+                                            v-model="application.name"
+                                            :rules="errors"
+                                            :error="!!errors.length"
+                                    ></v-text-field>
                                 </validation-provider>
                             </v-col>
                             <v-col cols="12" sm="12">

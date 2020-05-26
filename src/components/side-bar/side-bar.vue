@@ -16,7 +16,7 @@
                         <img class="tw-rounded-full" :src="logo">
                     </div>
                     <div class="tw-h-10 tw-ml-3 tw-mt-3">
-                        <h1 class="tw-text-base">{{ name }}</h1>
+                        <h1 class="tw-text-base tw-uppercase">{{ name }}</h1>
                     </div>
                 </div>
                 <!-- SIDEBAR BODY -->

@@ -73,6 +73,10 @@ router.beforeEach((to, from, next) => {
       store.commit('security/AUTHENTICATION_RESET');
       next('/login')
     } else if (store.getters['security/isAuthenticated']) {
+      if (to.path === '/') {
+        next({name: 'applications'});
+        return;
+      }
       store.commit('base/UPDATE_CURRENT_PATH', to.path)
       next()
     } else {

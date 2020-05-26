@@ -2,7 +2,7 @@
     <div class="top-0 z-0 w-full h-17 py-3 px-4">
         <v-toolbar flat class="bg-light">
             <v-app-bar-nav-icon class="lg:tw-hidden" @click="setShowSideBar()"></v-app-bar-nav-icon>
-            <v-toolbar-title>{{ $route.name | capitalize }}</v-toolbar-title>
+            <v-toolbar-title class="tw-capitalize">{{ $route.name }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon>
                 <v-icon>mdi-magnify</v-icon>

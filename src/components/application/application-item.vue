@@ -1,10 +1,10 @@
 <template>
-    <div data-app>
+    <div>
         <v-card>
+            <inactive-component-layer v-if="!application.isActive"></inactive-component-layer>
             <!-- CARD LOADER-->
             <loading :showLoading="showLoading"></loading>
-
-            <v-card-title>
+            <v-card-title class="tw-bg-opacity-100">
                 {{ application.name }}
             </v-card-title>
             <v-card-subtitle>
@@ -13,7 +13,7 @@
             <v-card-text>
                 lorem ipsum
             </v-card-text>
-            <v-card-actions>
+            <v-card-actions class="tw-z-20">
                 <v-spacer></v-spacer>
                 <v-btn icon color="primary">
                     <v-icon>mdi-translate</v-icon>
@@ -55,10 +55,12 @@
   import {validationRuleMixin} from '@/mixins/validationRulesMixin';
   import ApplicationEditForm from './application-edit-form';
   import DeleteDialog from '@/components/delete-dialog/delete-dialog';
+  import InactiveComponentLayer from '@/components/inactive-component-layer';
 
   export default {
     name: "application-item",
     components: {
+      InactiveComponentLayer,
       DeleteDialog,
       ApplicationEditForm,
       Loading,

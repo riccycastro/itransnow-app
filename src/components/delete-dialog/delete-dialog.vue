@@ -1,5 +1,9 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="400">
+    <v-dialog
+            v-model="showDialog"
+            max-width="400"
+            @click:outside="onCancel()"
+            @keydown.esc="onCancel()">
         <v-card>
             <v-card-title class="headline tw-break-normal">
                 {{title}}
@@ -36,6 +40,11 @@
         type: String,
         required: false,
       },
+    },
+    data(){
+      return {
+        show: this.showDialog
+      }
     },
     methods: {
       onCancel() {

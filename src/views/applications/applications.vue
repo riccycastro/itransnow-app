@@ -1,5 +1,6 @@
 <template>
     <div class="tw-content">
+        <loading :showLoading="showLoading"></loading>
         <empty-state
                 icon="important_devices"
                 title="Create your first application"
@@ -8,7 +9,6 @@
             <v-btn color="primary" @click="showForm = true">Create first application</v-btn>
         </empty-state>
         <div class="tw-md-layout tw-grid lg:tw-grid-cols-3 md:tw-grid-cols-2 tw-gap-4 tw-grid-cols-1">
-            <loading :showLoading="showLoading"></loading>
             <application-item
                     v-for="application in applications"
                     v-bind:applicationData="application"

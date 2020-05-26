@@ -28,7 +28,7 @@
                                                 label="Email"
                                                 type="email"
                                                 :error="!!errors.length"
-                                                :rules="[errors[0]]"
+                                                :rules="errors"
                                                 hide-details="auto"></v-text-field>
                                     </validation-provider>
                                 </v-col>
@@ -39,7 +39,7 @@
                                         <v-text-field
                                                 v-model="password"
                                                 label="Password"
-                                                :rules="[errors[0]]"
+                                                :rules="errors"
                                                 :error="!!errors.length"
                                                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                                 :type="showPassword ? 'text' : 'password'"
