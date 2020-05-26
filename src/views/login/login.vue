@@ -1,5 +1,7 @@
 <template>
     <div class="tw-flex tw-content-center tw-flex-wrap tw-bg-gray-200 tw-h-screen">
+        <loading :show-loading="showLoading"></loading>
+        <notification></notification>
         <!--       tw-p-6 -->
         <div class="
         tw-mx-auto tw-h-125 tw-w-11/12 sm:tw-w-3/5 md:tw-w-1/2 lg:tw-w-3/4 xl:tw-w-3/5
@@ -10,6 +12,7 @@
             <div class="
             h-112 lg:tw-w-2/5
             tw-inline-block tw-float-right tw-p-6 lg:tw-p-3">
+
                 <ValidationObserver v-slot="{ invalid }" ref="form">
                     <form @submit.prevent="loginJWT">
                         <h1 class="tw-font-bold tw-text-2xl">Login</h1>
@@ -24,8 +27,9 @@
                                                 v-model="email"
                                                 label="Email"
                                                 type="email"
+                                                :error="!!errors.length"
+                                                :rules="[errors[0]]"
                                                 hide-details="auto"></v-text-field>
-                                        <span class="tw-text-danger tw-text-sm">{{ errors[0] }}</span>
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="12">
@@ -34,10 +38,13 @@
                                                          v-slot="{ errors }">
                                         <v-text-field
                                                 v-model="password"
-                                                label="password"
-                                                type="password"
+                                                label="Password"
+                                                :rules="[errors[0]]"
+                                                :error="!!errors.length"
+                                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                                :type="showPassword ? 'text' : 'password'"
+                                                @click:append="showPassword = !showPassword"
                                                 hide-details="auto"></v-text-field>
-                                        <span class="tw-text-danger tw-text-sm">{{ errors[0] }}</span>
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="6">
@@ -58,7 +65,7 @@
                                             class="tw-w-24"
                                             color="primary"
                                             :disabled="invalid"
-                                            @click="loginJWT()">
+                                            type="submit">
                                         Login
                                     </v-btn>
                                 </v-col>
@@ -77,10 +84,14 @@
   import {ValidationObserver, ValidationProvider} from 'vee-validate';
   import {validationRuleMixin} from "../../mixins/validationRulesMixin";
   import {loaderMixin} from '../../mixins/loaderMixin'
+  import Loading from "../../components/loading/loading";
+  import Notification from "../../components/notification/notification";
 
   export default {
     name: "login",
     components: {
+      Notification,
+      Loading,
       ValidationProvider,
       ValidationObserver,
     },
@@ -90,13 +101,12 @@
     ],
     data() {
       return {
-        email: 'rcastro@cenas.pt',
-        password: '123456',
+        email: '',
+        password: '',
         rememberMe: false,
-        showSnackbar: false,
-        snackBarText: '',
         hasMessages: true,
-
+        showLoading: false,
+        showPassword: false,
       }
     },
     computed: {
@@ -122,7 +132,7 @@
             return;
           }
 
-          // this.$_loaderMixin_loaderStart(this.$refs.loadingContainer)
+          this.showLoading = true;
 
           const payload = {
             email: this.email,
@@ -133,10 +143,8 @@
           await this.doLogin(payload)
 
           if (!this.hasError) {
-            this.getCurrentUserData()
+            await this.getCurrentUserData()
           }
-
-          // this.$_loaderMixin_loaderStop()
 
           if (!this.hasError) {
             if (redirect !== undefined) {
@@ -144,12 +152,16 @@
             } else {
               await this.$router.push({name: 'applications'})
             }
-          } else {
-            if (this.error.response.status === 401) {
-              this.snackBarText = 'Invalid username or password!';
-              this.showSnackbar = true;
-            }
+          } else if (this.error.response.status === 401) {
+            // since we just want to highlight this two fields
+            // we are passing empty error messages
+            this.$refs.form.setErrors({
+              email: [''],
+              password: [''],
+            })
           }
+
+          this.showLoading = false;
         })
       },
     }

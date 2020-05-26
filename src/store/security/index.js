@@ -59,9 +59,13 @@ export default {
       try {
         const result = await securityAPI.login(payload.email, payload.password);
         commit('AUTHENTICATING_SUCCESS', result.data);
-        commit('base/SET_NOTIFICATIONS', []);
+        commit('base/SET_NOTIFICATIONS', [], {root: true});
       } catch (err) {
+        if (err.response.status === 401) {
+          err.response.data.message = "Wrong email address or password!"
+        }
         commit('AUTHENTICATING_ERROR', err)
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
       }
     },
     authenticationReset({commit}) {
