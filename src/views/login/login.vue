@@ -83,7 +83,6 @@
   import {mapActions, mapGetters} from 'vuex'
   import {ValidationObserver, ValidationProvider} from 'vee-validate';
   import {validationRuleMixin} from "../../mixins/validationRulesMixin";
-  import {loaderMixin} from '../../mixins/loaderMixin'
   import Loading from "../../components/loading/loading";
   import Notification from "../../components/notification/notification";
 
@@ -97,7 +96,6 @@
     },
     mixins: [
       validationRuleMixin,
-      loaderMixin,
     ],
     data() {
       return {

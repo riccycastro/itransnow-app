@@ -5,6 +5,7 @@
             <user-item
                     v-for="user in users"
                     :key="user.username"
+                    :userData="user"
             ></user-item>
         </div>
         <v-btn class="tw-fixed tw-bottom-24 tw-right-3" color="primary" fab dark>
@@ -16,7 +17,7 @@
 <script>
   import {mapActions, mapGetters} from 'vuex';
   import Loading from '@/components/loading/loading.vue';
-  import UserItem from "../../components/user/user-item";
+  import UserItem from "@/components/user/user-item";
 
   export default {
     name: "users",

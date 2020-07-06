@@ -5,13 +5,16 @@ export default {
   namespaced: true,
   state: {
     users: [],
+    listCount: 0,
   },
   getters: {
     users: state => state.users,
+    listCount: state => state.listCount,
   },
   mutations: {
     SET_USERS(state, users) {
-      state.users = users;
+      state.users = users.data;
+      state.listCount = users.count;
     },
   },
   actions: {

@@ -28,7 +28,7 @@ export default class api {
    * @param {object} headers
    * @returns {Promise<any>}
    */
-  static get(url, queryString = '', headers = {}) {
+  static get(url, queryString = {}, headers = {}) {
     const headerObject = this.getSecurityToken(headers)
 
     return axios.get(url + '?' + this.serializeToQueryString(queryString), headerObject)

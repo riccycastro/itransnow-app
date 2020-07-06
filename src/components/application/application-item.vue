@@ -4,15 +4,12 @@
             <inactive-component-layer v-if="!application.isActive"></inactive-component-layer>
             <!-- CARD LOADER-->
             <loading :showLoading="showLoading"></loading>
-            <v-card-title class="tw-bg-opacity-100">
+            <v-card-title>
                 {{ application.name }}
             </v-card-title>
             <v-card-subtitle>
                 {{getLastUpdate()}}
             </v-card-subtitle>
-            <v-card-text>
-                lorem ipsum
-            </v-card-text>
             <v-card-actions class="tw-z-20">
                 <v-spacer></v-spacer>
                 <v-btn icon color="primary">
@@ -21,7 +18,7 @@
                 <v-btn icon color="primary" @click="showEditForm = true">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="danger" @click="showDialog = true">
+                <v-btn icon color="danger" @click="showDeleteDialog = true">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </v-card-actions>
@@ -29,9 +26,9 @@
 
         <!-- DELETE CONFIRM DIALOG-->
         <delete-dialog
-                :showDialog="showDialog"
-                :subtitle="`You wont be able to recover this application.`"
+                :showDialog="showDeleteDialog"
                 :title="`Delete ${application.name} app?`"
+                :subtitle="`You wont be able to recover this application.`"
                 @onConfirm="onDelete"
                 @onCancel="onCancelDelete"
         ></delete-dialog>
@@ -50,7 +47,6 @@
 
 <script>
   import {mapActions} from 'vuex';
-  import {loaderMixin} from '@/mixins/loaderMixin';
   import Loading from '@/components/loading/loading.vue';
   import {validationRuleMixin} from '@/mixins/validationRulesMixin';
   import ApplicationEditForm from './application-edit-form';
@@ -71,13 +67,12 @@
       },
     },
     mixins: [
-      loaderMixin,
       validationRuleMixin,
     ],
     data() {
       return {
         application: JSON.parse(JSON.stringify(this.applicationData)),
-        showDialog: false,
+        showDeleteDialog: false,
         showLoading: false,
         showEditForm: false,
       }
@@ -93,10 +88,10 @@
         return `created at ${this.$options.filters.date(this.application.createdAt)}`;
       },
       onCancelDelete() {
-        this.showDialog = false
+        this.showDeleteDialog = false
       },
       async onDelete() {
-        this.showDialog = false;
+        this.showDeleteDialog = false;
         this.showLoading = true;
         await this.deleteApplication(this.application.alias);
         this.showLoading = false;
