@@ -89,6 +89,9 @@ export default {
         commit("SET_ERROR", err)
       }
     },
+    setApplication({commit}, application) {
+      commit('SET_APPLICATION', application)
+    },
     async getApplications({commit}) {
       commit("SET_ERROR", null)
       try {

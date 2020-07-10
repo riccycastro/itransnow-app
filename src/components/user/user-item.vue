@@ -1,6 +1,7 @@
 <template>
     <div>
-        <v-card>
+        <v-card
+        :elevation="5">
             <inactive-component-layer v-if="!user.isActive"></inactive-component-layer>
             <loading :showLoading="showLoading"></loading>
             <v-card-title class="tw-break-normal">
@@ -9,12 +10,13 @@
             <v-card-subtitle>
                 {{user.email}}
             </v-card-subtitle>
+
             <v-card-actions class="tw-z-20">
                 <v-spacer></v-spacer>
                 <v-btn icon color="primary">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="danger" @click="showDeleteDialog = true">
+                <v-btn icon color="dark" @click="showDeleteDialog = true">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </v-card-actions>

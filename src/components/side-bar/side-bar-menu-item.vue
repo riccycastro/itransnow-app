@@ -32,7 +32,7 @@
         currentPath: 'base/currentPath'
       }),
       isActive() {
-        return this.currentPath === this.menuItem.path;
+        return this.currentPath === this.menuItem.alias;
       }
     },
     methods: {

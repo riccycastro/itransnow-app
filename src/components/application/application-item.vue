@@ -1,24 +1,25 @@
 <template>
     <div>
-        <v-card>
+        <v-card
+                :rounded="'xl'"
+                :elevation="3"
+                class="tw-cursor-pointer"
+                v-on:dblclick="enterApp">
             <inactive-component-layer v-if="!application.isActive"></inactive-component-layer>
             <!-- CARD LOADER-->
             <loading :showLoading="showLoading"></loading>
-            <v-card-title>
+            <v-card-title class="tw-select-none">
                 {{ application.name }}
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="tw-select-none">
                 {{getLastUpdate()}}
             </v-card-subtitle>
             <v-card-actions class="tw-z-20">
                 <v-spacer></v-spacer>
-                <v-btn icon color="primary">
-                    <v-icon>mdi-translate</v-icon>
-                </v-btn>
                 <v-btn icon color="primary" @click="showEditForm = true">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="danger" @click="showDeleteDialog = true">
+                <v-btn icon color="dark" @click="showDeleteDialog = true">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </v-card-actions>
@@ -80,7 +81,12 @@
     methods: {
       ...mapActions({
         deleteApplication: 'application/deleteApplication',
+        setApplication: 'application/setApplication',
       }),
+      async enterApp() {
+        this.setApplication(this.application);
+        await this.$router.push({name: 'sections', params: {applicationAlias: this.application.alias}});
+      },
       getLastUpdate() {
         if (this.application.updatedAt) {
           return `updated at ${this.$options.filters.date(this.application.updatedAt)}`;

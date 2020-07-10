@@ -148,7 +148,7 @@
             if (redirect !== undefined) {
               await this.$router.push({path: redirect})
             } else {
-              await this.$router.push({name: 'applications'})
+              await this.$router.push({name: 'home-page'})
             }
           } else if (this.error.response.status === 401) {
             // since we just want to highlight this two fields

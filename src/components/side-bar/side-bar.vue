@@ -11,7 +11,7 @@
              :style="{backgroundImage: `url('${backgroundImage}')` }">
             <div class="tw-w-full tw-h-screen tw-bg-gray-900 tw-bg-opacity-75 tw-py-2 tw-px-3">
                 <!-- SIDEBAR HEAD -->
-                <div class="itn-sidebar-head tw-flex tw-border-b tw-border-gray-700 tw-pl-2 tw-cursor-pointer">
+                <div class="itn-sidebar-head tw-flex tw-border-b tw-border-gray-700 tw-pl-2 tw-cursor-pointer" @click="$router.push({path: url})">
                     <div class="tw-bg-white tw-h-8 tw-w-8 tw-rounded-full tw-my-2 ">
                         <img class="tw-rounded-full" :src="logo">
                     </div>
@@ -61,6 +61,7 @@
         items: this.sideBarData.body.items,
         backgroundImage: this.sideBarData.body.backgroundImage,
         logo: this.sideBarData.head.logo,
+        url: this.sideBarData.head.url,
       }
     },
     mounted() {

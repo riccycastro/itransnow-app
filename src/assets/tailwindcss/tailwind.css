@@ -1,8 +1,8 @@
 @tailwind base;
 
 .theme--light.v-toolbar.v-sheet.bg-light {
-    background-color: #eeeeee;
-    background-color: rgba(238, 238, 238, var(--bg-opacity));
+    background-color: #e8eaf1;
+    background-color: rgba(232, 234, 241, var(--bg-opacity));
 }
 
 @tailwind components;

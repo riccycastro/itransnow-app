@@ -66,25 +66,15 @@ export default class api {
   /**
    *
    * @param obj
-   * @param prefix
    * @returns {string}
    */
-  static serializeToQueryString(obj, prefix = "") {
+  static serializeToQueryString(obj) {
     const str = []
-    console.log(obj)
-    console.log(prefix)
-    // let p
-    // for (p in obj) {
-    //   if (obj.hasOwnProperty(p)) {
-    //     const k = prefix ? prefix + "[" + p + "]" : p,
-    //       v = obj[p]
-    //     str.push(
-    //       v !== null && typeof v === "object"
-    //         ? this.serializeToQueryString(v, k)
-    //         : encodeURIComponent(k) + "=" + encodeURIComponent(v)
-    //     )
-    //   }
-    // }
+
+    for (const key of Object.keys(obj)) {
+      str.push(`${key}=${obj[key]}`)
+    }
+
     return str.join('&')
   }
 }

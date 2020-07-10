@@ -16,7 +16,7 @@
                 <v-btn text @click="onCancel()">
                     Cancel
                 </v-btn>
-                <v-btn text color="danger" @click="onConfirm()">
+                <v-btn text color="primary" @click="onConfirm()">
                     Delete
                 </v-btn>
             </v-card-actions>

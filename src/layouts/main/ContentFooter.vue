@@ -7,7 +7,7 @@
           >Creative Tim</a
         >
       <div class="tw-mx-2">•</div> Logo icon made by
-      <a class="tw-mx-1" href="https://www.flaticon.com/authors/freepik">Freepik</a>
+      <a class="tw-mx-1" href="https://www.flaticon.com/authors/itim2101" target="_blank">itim2101</a>
       from
       <a class="tw-mx-1" href="http://www.flaticon.com/" target="_blank" rel="noopener noreferrer">flaticon.com</a>
     </div>

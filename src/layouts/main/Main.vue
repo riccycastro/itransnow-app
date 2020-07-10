@@ -33,22 +33,35 @@
         sideBarData: {
           head: {
             logo: require('@/assets/img/logo.png'),
-            name: 'iTranslateNow'
+            name: 'iTranslateNow',
+            url: '/'
           },
           body: {
             backgroundImage: require("@/assets/img/sidebar-2.jpg"),
             items: [
               {
-                alias: 'apps',
-                icon: 'apps',
-                text: 'Applications',
-                path: '/applications',
+                alias: 'sections',
+                icon: 'view_module',
+                text: 'Sections',
+                path: '/sections'
+              },
+              {
+                alias: 'translations',
+                icon: 'translate',
+                text: 'Translations',
+                path: '/translations',
               },
               {
                 alias: 'users',
-                icon: 'person',
+                icon: 'people',
                 text: 'Users',
                 path: '/users',
+              },
+              {
+                alias: 'white-labels',
+                icon: 'dvr',
+                text: 'White labels',
+                path: '/white-labels',
               }
             ]
           }

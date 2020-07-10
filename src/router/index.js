@@ -9,6 +9,30 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   linkExactActiveClass: "nav-item active",
   routes: [
+
+    {
+      // =============================================================================
+      // FULL PAGE LAYOUT ROUTES
+      // =============================================================================
+      path: "",
+      component: () => import("@/layouts/full-page/full-page.vue"),
+      name: 'fullPage',
+      children: [
+        {
+          path: "/",
+          name: "home-page",
+          component: () => import('@/views/home-page/home-page.vue'),
+        },
+        {
+          path: "/login",
+          name: "page-login",
+          component: () => import("@/views/login/login.vue"),
+          meta: {
+            authRequired: false
+          }
+        },
+      ]
+    },
     {
       // =============================================================================
       // MAIN LAYOUT ROUTES
@@ -20,48 +44,15 @@ const router = new VueRouter({
       component: () => import("@/layouts/main/Main.vue"),
       children: [
         {
-          path: '/applications',
-          name: 'applications',
-          component: () => import('@/views/applications/applications.vue'),
+          path: '/application/:applicationAlias/sections',
+          name: 'sections',
+          component: () => import('@/views/sections/sections.vue'),
           meta: {
             authRequired: true
           }
         },
-        {
-          path: '/users',
-          name: 'users',
-          component: () => import('@/views/users/users.vue'),
-          meta: {
-            authRequired: true
-          }
-        },
-        {
-          path: '/logout',
-          name: 'page-logout',
-          meta: {
-            authRequired: true
-          }
-        }
       ],
     },
-    {
-      // =============================================================================
-      // FULL PAGE LAYOUT ROUTES
-      // =============================================================================
-      path: "",
-      component: () => import("@/layouts/full-page/full-page.vue"),
-      name: 'fullPage',
-      children: [
-        {
-          path: "/login",
-          name: "page-login",
-          component: () => import("@/views/login/login.vue"),
-          meta: {
-            authRequired: false
-          }
-        },
-      ]
-    }
   ]
 });
 
@@ -73,11 +64,7 @@ router.beforeEach((to, from, next) => {
       store.commit('security/AUTHENTICATION_RESET');
       next('/login')
     } else if (store.getters['security/isAuthenticated']) {
-      if (to.path === '/') {
-        next({name: 'applications'});
-        return;
-      }
-      store.commit('base/UPDATE_CURRENT_PATH', to.path)
+      store.commit('base/UPDATE_CURRENT_PATH', to.name)
       next()
     } else {
       next({

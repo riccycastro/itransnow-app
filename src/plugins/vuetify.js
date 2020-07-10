@@ -14,8 +14,8 @@ export default new Vuetify({
         success: '#4caf50',
         danger: '#f44336',
         warning: '#ef6c00',
-        dark: '#242145',
-        light: '#eeeeee'
+        dark: '#3b3671',
+        light: '#e8eaf1'
       }
     }
   },
