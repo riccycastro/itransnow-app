@@ -22,6 +22,9 @@ const router = new VueRouter({
           path: "/",
           name: "home-page",
           component: () => import('@/views/home-page/home-page.vue'),
+          meta: {
+            authRequired: true
+          }
         },
         {
           path: "/login",
@@ -51,13 +54,21 @@ const router = new VueRouter({
             authRequired: true
           }
         },
+        {
+          path: '/logout',
+          name: 'page-logout',
+          meta: {
+            authRequired: true
+          }
+        }
       ],
     },
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+
+  if (to.matched.some(record => record.meta.authRequired)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (to.matched.some(record => record.name === 'page-logout')) {
