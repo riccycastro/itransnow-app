@@ -1,5 +1,6 @@
 import store from '../store'
 import axios from 'axios'
+import router from "../router"
 
 export default class api {
   static protocol() {
@@ -32,6 +33,7 @@ export default class api {
     const headerObject = this.getSecurityToken(headers)
 
     return axios.get(url + '?' + this.serializeToQueryString(queryString), headerObject)
+      .catch(this.handleError)
   }
 
   /**
@@ -44,6 +46,7 @@ export default class api {
   static post(url, data, headers = {}) {
     const headerObject = this.getSecurityToken(headers)
     return axios.post(url, data, headerObject)
+      .catch(this.handleError)
   }
 
   /**
@@ -56,11 +59,22 @@ export default class api {
   static patch(url, data, headers = {}) {
     const headerObject = this.getSecurityToken(headers)
     return axios.patch(url, data, headerObject)
+      .catch(this.handleError)
   }
 
   static delete(url, headers = {}) {
     const headerObject = this.getSecurityToken(headers)
     return axios.delete(url, headerObject)
+      .catch(this.handleError)
+  }
+
+  static handleError(e) {
+    if (e.response.status === 401 && e.response?.data?.redirectTo) {
+      router.push(e.response.data.redirectTo)
+      return;
+    }
+
+    throw e;
   }
 
   /**
@@ -76,5 +90,13 @@ export default class api {
     }
 
     return str.join('&')
+  }
+
+  static composedUrl(url, params) {
+    for (const key of Object.keys(params)) {
+      url = url.replace(`{${key}}`, params[key])
+    }
+
+    return url;
   }
 }
