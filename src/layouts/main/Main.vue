@@ -4,9 +4,11 @@
     <notification></notification>
 
     <div class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-min-h-screen">
-      <tool-bar></tool-bar>
-      <main-content></main-content>
-
+      <template v-if="application">
+        <tool-bar></tool-bar>
+        <main-content></main-content>
+      </template>
+      <loading :showLoading="!application"></loading>
       <content-footer></content-footer>
     </div>
   </div>
@@ -18,6 +20,8 @@
   import SideBar from '@/components/side-bar/side-bar.vue';
   import ToolBar from '@/components/tool-bar/tool-bar.vue';
   import Notification from '@/components/notification/notification';
+  import Loading from '@/components/loading/loading';
+  import {mapActions, mapGetters} from "vuex";
 
   export default {
     components: {
@@ -25,7 +29,8 @@
       MainContent,
       ContentFooter,
       SideBar,
-      ToolBar
+      ToolBar,
+      Loading,
     },
     data() {
       return {
@@ -68,7 +73,29 @@
         }
       };
     },
-    methods: {}
+    async mounted() {
+      await this.getApplication({
+        applicationAlias: this.$route.params.applicationAlias,
+        includes: []
+      });
+
+      if (this.error) {
+        if (this.error?.response?.status === 404) {
+          // todo@rcastro - redirect to 404 page
+        }
+      }
+    },
+    computed: {
+      ...mapGetters({
+        application: 'application/application',
+        error: 'application/error',
+      }),
+    },
+    methods: {
+      ...mapActions({
+        getApplication: 'application/getApplication'
+      }),
+    }
   };
 
 </script>

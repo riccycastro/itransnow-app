@@ -13,15 +13,28 @@
             <v-btn icon>
                 <v-icon>mdi-heart</v-icon>
             </v-btn>
-            <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
+            <v-menu>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                            icon
+                            v-bind="attrs"
+                            v-on="on">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
+
+                <v-list>
+                    <v-list-item @click="doLogout">
+                        <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </v-toolbar>
     </div>
 </template>
 
 <script>
-  import {mapGetters, mapActions} from "vuex";
+  import {mapActions, mapGetters} from "vuex";
 
   export default {
     name: "tool-bar",
@@ -35,6 +48,9 @@
       ...mapActions({
         storeSetShowSideBar: 'base/setShowSideBar'
       }),
+      async doLogout() {
+        await this.$router.push({path: 'logout'});
+      },
       setShowSideBar() {
         this.storeSetShowSideBar(!this.showSideBar)
       }

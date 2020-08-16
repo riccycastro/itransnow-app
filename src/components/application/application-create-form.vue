@@ -87,10 +87,9 @@
         } else {
           this.setNotification({
             type: 'success',
-            message: 'Updated with success!'
-          });
+            message: `Application created with success.`
+          })
           this.$emit('triggerShowCreateForm');
-          this.$emit('setApplication');
         }
 
         this.$emit('triggerShowLoading')

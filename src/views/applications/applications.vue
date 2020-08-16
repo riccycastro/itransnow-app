@@ -22,7 +22,6 @@
                 :showLoading="false"
                 @triggerShowCreateForm="triggerShowCreateForm"
                 @triggerShowLoading="triggerShowLoading"
-                @setApplication="setApplication"
         ></application-create-form>
     </div>
 </template>
@@ -45,7 +44,6 @@
     },
     data() {
       return {
-        first: true,
         showLoading: false,
         showForm: false
       }
@@ -71,12 +69,7 @@
         this.showForm = !this.showForm;
       },
       triggerShowLoading() {
-      },
-      setApplication() {
-        this.setNotification({
-          type: 'success',
-          message: `Application created with success.`
-        })
+        this.showLoading = !this.showLoading
       },
     },
   }

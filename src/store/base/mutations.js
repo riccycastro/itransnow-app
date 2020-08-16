@@ -9,7 +9,7 @@ const mutations = {
     state.notifications = notifications;
   },
   HANDLE_HTTP_NOTIFICATION_ERROR(state, err) {
-    const message = err.response.status === 500 ?
+    const message = err?.response?.status === 500 ?
       'Internal Server Error, please try again later' :
       (err.response.data.message || 'Unknown error, try again later')
 

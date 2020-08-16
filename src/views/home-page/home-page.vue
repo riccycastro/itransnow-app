@@ -1,18 +1,16 @@
 <template>
     <div class="tw-bg-light tw-h-screen">
         <tool-bar></tool-bar>
-
+        <notification></notification>
         <div class="tw-container tw-mx-auto tw-px-4">
-            <div class="tw-ml-10">
-                <span
-                        class="tw-text-2xl tw-mr-6 tw-cursor-pointer tw-inline-block tw-w-32"
-                        :class="{'tw-text-primary tw-font-normal': selectedTab === applicationsTabName}"
-                        @click="selectTabApplications">Applications</span>
-                <span
-                        class="tw-text-2xl tw-cursor-pointer"
-                        :class="{'tw-text-primary tw-font-normal': selectedTab === usersTabName}"
-                        @click="selectTabUsers">Users</span>
-            </div>
+            <span
+                    class="tw-text-2xl tw-mr-12 tw-cursor-pointer tw-inline-block tw-w-32 tw-font-medium"
+                    :class="{'tw-text-primary': selectedTab === applicationsTabName}"
+                    @click="selectTabApplications">Applications</span>
+            <span
+                    class="tw-text-2xl tw-cursor-pointer tw-font-medium"
+                    :class="{'tw-text-primary': selectedTab === usersTabName}"
+                    @click="selectTabUsers">Users</span>
             <div class="tw-mt-12">
                 <application-view v-show="selectedTab === applicationsTabName"></application-view>
                 <user-view v-show="selectedTab === usersTabName"></user-view>
@@ -28,6 +26,7 @@
   import ToolBar from '@/components/tool-bar/tool-bar.vue';
   import ApplicationView from '@/views/applications/applications.vue';
   import UserView from '@/views/users/users.vue';
+  import Notification from '@/components/notification/notification';
 
   export default {
     name: "home-page",
@@ -36,6 +35,7 @@
       ApplicationView,
       UserView,
       ContentFooter,
+      Notification,
     },
     data() {
       return {
@@ -53,7 +53,7 @@
       },
       selectTabUsers() {
         this.selectedTab = this.usersTabName;
-      }
+      },
     },
   }
 </script>

@@ -1,6 +1,6 @@
 import store from '../store'
 import axios from 'axios'
-import router from "../router"
+import router from '../router'
 
 export default class api {
   static protocol() {
@@ -68,11 +68,16 @@ export default class api {
       .catch(this.handleError)
   }
 
+  /**
+   * @param e
+   */
   static handleError(e) {
     if (e.response.status === 401 && e.response?.data?.redirectTo) {
       router.push(e.response.data.redirectTo)
       return;
     }
+
+    store.commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', e, {root: true})
 
     throw e;
   }

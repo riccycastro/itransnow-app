@@ -4,7 +4,7 @@
                 :rounded="'xl'"
                 :elevation="3"
                 class="tw-cursor-pointer"
-                v-on:dblclick="enterApp">
+                v-on:dblclick="enterApp" @touchmove="setActive()">
             <inactive-component-layer v-if="!application.isActive"></inactive-component-layer>
             <!-- CARD LOADER-->
             <loading :showLoading="showLoading"></loading>
@@ -12,7 +12,7 @@
                 {{ application.name }}
             </v-card-title>
             <v-card-subtitle class="tw-select-none">
-                {{getLastUpdate()}}
+                {{ getLastUpdatedAtMixin_getLastUpdate(application.updatedAt, application.createdAt) }}
             </v-card-subtitle>
             <v-card-actions class="tw-z-20">
                 <v-spacer></v-spacer>
@@ -50,6 +50,7 @@
   import {mapActions} from 'vuex';
   import Loading from '@/components/loading/loading.vue';
   import {validationRuleMixin} from '@/mixins/validationRulesMixin';
+  import {getLastUpdatedAtMixin} from '@/mixins/get-last-updated-at.mixin';
   import ApplicationEditForm from './application-edit-form';
   import DeleteDialog from '@/components/delete-dialog/delete-dialog';
   import InactiveComponentLayer from '@/components/inactive-component-layer';
@@ -68,6 +69,7 @@
       },
     },
     mixins: [
+      getLastUpdatedAtMixin,
       validationRuleMixin,
     ],
     data() {
@@ -86,12 +88,6 @@
       async enterApp() {
         this.setApplication(this.application);
         await this.$router.push({name: 'sections', params: {applicationAlias: this.application.alias}});
-      },
-      getLastUpdate() {
-        if (this.application.updatedAt) {
-          return `updated at ${this.$options.filters.date(this.application.updatedAt)}`;
-        }
-        return `created at ${this.$options.filters.date(this.application.createdAt)}`;
       },
       onCancelDelete() {
         this.showDeleteDialog = false

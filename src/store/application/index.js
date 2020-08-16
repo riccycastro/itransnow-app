@@ -31,8 +31,8 @@ export default {
     },
   },
   mutations: {
-    ADD_APPLICATION(state, applicaption) {
-      state.applications.push(applicaption);
+    ADD_APPLICATION(state, application) {
+      state.applications.push(application);
     },
     SET_APPLICATION(state, application) {
       state.application = application;
@@ -78,12 +78,13 @@ export default {
     /**
      * @param commit
      * @param {string} applicationAlias
+     * @param {Array} includes
      * @returns {Promise<void>}
      */
-    async getApplication({commit}, applicationAlias) {
+    async getApplication({commit}, {applicationAlias, includes}) {
       commit("SET_ERROR", null)
       try {
-        const res = await applicationApi.getApplication(applicationAlias)
+        const res = await applicationApi.getApplication(applicationAlias, {includes: includes.join(',')})
         commit('SET_APPLICATION', res.data)
       } catch (err) {
         commit("SET_ERROR", err)
@@ -92,6 +93,12 @@ export default {
     setApplication({commit}, application) {
       commit('SET_APPLICATION', application)
     },
+    /**
+     *
+     * @param commit
+     * @param {Array} includes
+     * @returns {Promise<void>}
+     */
     async getApplications({commit}) {
       commit("SET_ERROR", null)
       try {
