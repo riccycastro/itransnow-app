@@ -14,7 +14,7 @@
             </v-card-subtitle>
             <v-card-actions class="tw-z-20">
                 <v-spacer></v-spacer>
-                <v-btn icon color="primary">
+                <v-btn icon color="primary" @click="showEditForm = true">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
                 <v-btn icon color="dark" @click="showDeleteDialog = true">
@@ -31,6 +31,16 @@
                 @onConfirm="onDelete"
                 @onCancel="onCancelDelete"
         ></delete-dialog>
+
+        <!-- EDIT DIALOG -->
+        <section-edit-form
+                :section="section"
+                :showEditForm="showEditForm"
+                :showLoading="showLoading"
+                @triggerShowEditForm="triggerShowEditForm"
+                @triggerShowLoading="triggerShowLoading"
+                @updateSection="updateSection"
+        ></section-edit-form>
     </div>
 </template>
 
@@ -41,10 +51,12 @@
   import Loading from '@/components/loading/loading.vue';
   import {getLastUpdatedAtMixin} from '@/mixins/get-last-updated-at.mixin';
   import DeleteDialog from '@/components/delete-dialog/delete-dialog';
+  import SectionEditForm from '@/components/section/section-edit-form.vue';
 
   export default {
     name: "section-item",
     components: {
+      SectionEditForm,
       InactiveComponentLayer,
       Loading,
       DeleteDialog,
@@ -77,6 +89,15 @@
         this.showLoading = true;
         await this.deleteSection(this.section.alias);
         this.showLoading = false;
+      },
+      triggerShowEditForm() {
+        this.showEditForm = !this.showEditForm;
+      },
+      triggerShowLoading() {
+        this.showLoading = !this.showLoading;
+      },
+      updateSection(section) {
+        this.section = section;
       },
     },
   }

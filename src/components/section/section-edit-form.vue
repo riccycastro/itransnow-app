@@ -5,7 +5,7 @@
         <form @submit.prevent="onEdit()">
           <loading :showLoading="showLoading"></loading>
           <v-card-title>
-            <span class="headline">{{ application.name }}</span>
+            <span class="headline">{{ section.name }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -19,7 +19,7 @@
                       required
                       :rules="errors"
                       :error="!!errors.length"
-                      v-model="application.name"></v-text-field>
+                      v-model="section.name"></v-text-field>
                   </validation-provider>
                 </v-col>
                 <v-col cols="12" md="6">
@@ -28,7 +28,7 @@
                 </v-col>
                 <v-col cols="12" sm="12">
                   <v-checkbox class="mt-0"
-                              v-model="application.isActive"
+                              v-model="section.isActive"
                               label="active"></v-checkbox>
                 </v-col>
               </v-row>
@@ -49,11 +49,11 @@
 
 <script>
   import {ValidationObserver, ValidationProvider} from "vee-validate";
-  import {mapActions, mapGetters} from "vuex";
   import Loading from "../loading/loading";
+  import {mapActions} from "vuex";
 
   export default {
-    name: "application-edit-form",
+    name: "section-edit-form.vue",
     components: {
       Loading,
       ValidationProvider,
@@ -62,41 +62,40 @@
     props: {
       showEditForm: Boolean,
       showLoading: Boolean,
-      application: Object,
+      section: Object,
     },
     data() {
       return {
-        //we don't want to allow user to change application alias
-        aliasShadow: this.application.alias,
-        applicationBackup: JSON.stringify(this.application),
+        //we don't want to allow user to change section alias
+        aliasShadow: this.section.alias,
+        sectionBackup: JSON.stringify(this.section),
       }
     },
     computed: {
-      ...mapGetters({
-        hasError: 'application/hasError',
-        error: 'application/error'
-      }),
-      changed: function () {
-        return this.applicationBackup !== JSON.stringify(this.application);
+      changed() {
+        return this.sectionBackup !== JSON.stringify(this.section);
       }
     },
     methods: {
       ...mapActions({
-        updateApplication: 'application/updateApplication',
+        updateSection: 'section/updateSection',
         setNotification: 'base/setNotification',
       }),
       onCloseEdit() {
-        this.$emit('updateApplication', JSON.parse(this.applicationBackup));
+        this.$emit('updateSection', JSON.parse(this.sectionBackup));
         this.$emit('triggerShowEditForm');
       },
-      async onEdit() {
+      onEdit() {
         this.$refs.editForm.validate().then(async (success) => {
           if (!success) {
             return;
           }
 
-          this.showLoading || this.$emit('triggerShowLoading');
-          const updatedApplication = await this.updateApplication(this.application);
+          this.showLoading || this.$emit('triggerShowLoading')
+          const updatedSection = await this.updateSection({
+            section: this.section,
+            sectionAlias: this.aliasShadow
+          });
 
           if (this.hasError) {
             this.onCloseEdit();
@@ -106,12 +105,12 @@
               message: 'Updated with success!'
             });
             this.$emit('triggerShowEditForm');
-            this.$emit('updateApplication', updatedApplication);
+            this.$emit('updateSection', updatedSection);
           }
 
           this.$emit('triggerShowLoading');
         });
-      },
+      }
     },
   }
 </script>

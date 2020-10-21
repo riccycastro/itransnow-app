@@ -8,7 +8,7 @@ export default class api {
   }
 
   static baseUrl(suffix = '') {
-    return this.protocol() + "api.itransnow.local/" + (suffix ? suffix + '/' : '')
+    return this.protocol() + "api.itransnow.local/v1/" + (suffix ? suffix + '/' : '')
   }
 
   /**

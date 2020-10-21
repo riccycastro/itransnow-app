@@ -59,5 +59,17 @@ export default {
         commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', e, {root: true});
       }
     },
+    async updateSection({commit, rootGetters}, {section, sectionAlias}) {
+      commit("SET_ERROR", null);
+      const currentApplication = rootGetters['application/application'];
+      try {
+        commit('SET_LOADED', false);
+        const res = await sectionApi.editSection(currentApplication.alias, sectionAlias, {name: section.name});
+        return res.data;
+      } catch (err) {
+        commit("SET_ERROR", err);
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true});
+      }
+    }
   }
 }

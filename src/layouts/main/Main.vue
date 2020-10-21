@@ -21,6 +21,7 @@
   import ToolBar from '@/components/tool-bar/tool-bar.vue';
   import Notification from '@/components/notification/notification';
   import Loading from '@/components/loading/loading';
+  import {validationRuleMixin} from "@/mixins/validationRulesMixin";
   import {mapActions, mapGetters} from "vuex";
 
   export default {
@@ -32,6 +33,9 @@
       ToolBar,
       Loading,
     },
+    mixins: [
+      validationRuleMixin,
+    ],
     data() {
       return {
         sidebarBackground: "green",
