@@ -70,6 +70,18 @@ export default {
         commit("SET_ERROR", err);
         commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true});
       }
+    },
+    async createSection({commit, dispatch, rootGetters}, section) {
+      commit("SET_ERROR", null);
+      const currentApplication = rootGetters['application/application'];
+      try {
+        const sectionCreated = await sectionApi.createSection(currentApplication.alias, section);
+        await dispatch('getApplicationSections');
+        return sectionCreated.data;
+      } catch (err) {
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true});
+        commit("SET_ERROR", err);
+      }
     }
   }
 }

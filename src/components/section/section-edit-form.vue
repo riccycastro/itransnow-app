@@ -50,7 +50,7 @@
 <script>
   import {ValidationObserver, ValidationProvider} from "vee-validate";
   import Loading from "../loading/loading";
-  import {mapActions} from "vuex";
+  import {mapActions, mapGetters} from "vuex";
 
   export default {
     name: "section-edit-form",
@@ -72,6 +72,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        error: 'section/error'
+      }),
       changed() {
         return this.sectionBackup !== JSON.stringify(this.section);
       }
@@ -97,7 +100,7 @@
             sectionAlias: this.aliasShadow
           });
 
-          if (this.hasError) {
+          if (this.error != null) {
             this.onCloseEdit();
           } else {
             this.setNotification({
