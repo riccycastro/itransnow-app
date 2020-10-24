@@ -53,7 +53,7 @@
   import {mapActions} from "vuex";
 
   export default {
-    name: "section-edit-form.vue",
+    name: "section-edit-form",
     components: {
       Loading,
       ValidationProvider,

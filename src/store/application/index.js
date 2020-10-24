@@ -61,8 +61,8 @@ export default {
         await dispatch('getApplications');
         return applicationCreated.data;
       } catch (err) {
-        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
-        commit("SET_ERROR", err)
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true});
+        commit("SET_ERROR", err);
       }
     },
     async deleteApplication({commit, dispatch}, applicationAlias) {
@@ -71,8 +71,8 @@ export default {
         await applicationApi.deleteApplication(applicationAlias);
         await dispatch('getApplications');
       } catch (err) {
-        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
-        commit("SET_ERROR", err)
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true});
+        commit("SET_ERROR", err);
       }
     },
     /**
@@ -82,16 +82,16 @@ export default {
      * @returns {Promise<void>}
      */
     async getApplication({commit}, {applicationAlias, includes}) {
-      commit("SET_ERROR", null)
+      commit("SET_ERROR", null);
       try {
-        const res = await applicationApi.getApplication(applicationAlias, {includes: includes.join(',')})
-        commit('SET_APPLICATION', res.data)
+        const res = await applicationApi.getApplication(applicationAlias, {includes: includes.join(',')});
+        commit('SET_APPLICATION', res.data);
       } catch (err) {
-        commit("SET_ERROR", err)
+        commit("SET_ERROR", err);
       }
     },
     setApplication({commit}, application) {
-      commit('SET_APPLICATION', application)
+      commit('SET_APPLICATION', application);
     },
     /**
      *
@@ -100,13 +100,13 @@ export default {
      * @returns {Promise<void>}
      */
     async getApplications({commit}) {
-      commit("SET_ERROR", null)
+      commit("SET_ERROR", null);
       try {
         commit('SET_LOADED', false);
         const res = await applicationApi.getApplications();
-        commit('SET_APPLICATIONS', res.data)
+        commit('SET_APPLICATIONS', res.data);
       } catch (err) {
-        commit("SET_ERROR", err)
+        commit("SET_ERROR", err);
       }
     },
     /**
@@ -115,13 +115,13 @@ export default {
      * @param {string}applicationAlias
      */
     async updateApplication({commit}, application) {
-      commit("SET_ERROR", null)
+      commit("SET_ERROR", null);
       try {
         const res = await applicationApi.updateApplication(application);
         return res.data;
       } catch (err) {
-        commit("SET_ERROR", err)
-        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true})
+        commit("SET_ERROR", err);
+        commit('base/HANDLE_HTTP_NOTIFICATION_ERROR', err, {root: true});
       }
     }
   }

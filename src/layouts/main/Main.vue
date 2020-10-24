@@ -1,9 +1,11 @@
 <template>
   <div>
-    <side-bar :side-bar-data="sideBarData"></side-bar>
+      <side-bar v-if="sideBarData" :side-bar-data="sideBarData"></side-bar>
+    <!-- https://vuetifyjs.com/en/components/snackbars/#variants -->
     <notification></notification>
 
-    <div class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-min-h-screen">
+    <div
+      class="tw-w-full lg:tw-w-content tw-relative tw-float-right tw-bg-light tw-transition-all tw-duration-300 tw-ease-in-out tw-min-h-screen">
       <template v-if="application">
         <tool-bar></tool-bar>
         <main-content></main-content>
@@ -19,6 +21,7 @@
   import MainContent from './Content.vue';
   import SideBar from '@/components/side-bar/side-bar.vue';
   import ToolBar from '@/components/tool-bar/tool-bar.vue';
+  // todo@rcastro - use this instead https://vuetifyjs.com/en/components/snackbars/#variants
   import Notification from '@/components/notification/notification';
   import Loading from '@/components/loading/loading';
   import {validationRuleMixin} from "@/mixins/validationRulesMixin";

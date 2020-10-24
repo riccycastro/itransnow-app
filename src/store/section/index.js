@@ -64,7 +64,7 @@ export default {
       const currentApplication = rootGetters['application/application'];
       try {
         commit('SET_LOADED', false);
-        const res = await sectionApi.editSection(currentApplication.alias, sectionAlias, {name: section.name});
+        const res = await sectionApi.editSection(currentApplication.alias, sectionAlias, {name: section.name, isActive: section.isActive});
         return res.data;
       } catch (err) {
         commit("SET_ERROR", err);

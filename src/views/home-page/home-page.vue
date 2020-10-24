@@ -26,6 +26,7 @@
   import ToolBar from '@/components/tool-bar/tool-bar.vue';
   import ApplicationView from '@/views/applications/applications.vue';
   import UserView from '@/views/users/users.vue';
+  // todo@rcastro - use this instead https://vuetifyjs.com/en/components/snackbars/#variants
   import Notification from '@/components/notification/notification';
 
   export default {

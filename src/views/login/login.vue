@@ -82,9 +82,10 @@
 
   import {mapActions, mapGetters} from 'vuex'
   import {ValidationObserver, ValidationProvider} from 'vee-validate';
-  import {validationRuleMixin} from "../../mixins/validationRulesMixin";
-  import Loading from "../../components/loading/loading";
-  import Notification from "../../components/notification/notification";
+  import {validationRuleMixin} from "@/mixins/validationRulesMixin";
+  import Loading from "@/components/loading/loading";
+  // todo@rcastro - use this instead https://vuetifyjs.com/en/components/snackbars/#variants
+  import Notification from "@/components/notification/notification";
 
   export default {
     name: "login",
