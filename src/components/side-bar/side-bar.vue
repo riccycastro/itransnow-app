@@ -2,7 +2,7 @@
     <div>
         <div class="itn-sidebar-wrapper
     tw-bg-center tw-bg-top tw-bg-no-repeat tw-bg-cover
-    tw-h-screen tw-z-50 tw-w-59
+    tw-h-screen tw-z-50 tw-w-65
     tw-shadow-lg-r
     tw-text-white
     tw-fixed lg:tw-block tw-right-0 lg:tw-left-0

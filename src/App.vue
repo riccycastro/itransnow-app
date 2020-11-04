@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <router-view></router-view>
+        <router-view class="tw-text-gray-700"></router-view>
     </v-app>
 </template>
 

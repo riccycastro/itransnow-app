@@ -55,6 +55,14 @@ const router = new VueRouter({
           }
         },
         {
+          path: '/application/:applicationAlias/translations',
+          name: 'translations',
+          component: () => import('@/views/translations/translations.vue'),
+          meta: {
+            authRequired: true
+          }
+        },
+        {
           path: '/logout',
           name: 'page-logout',
           meta: {

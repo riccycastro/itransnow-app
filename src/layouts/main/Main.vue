@@ -42,42 +42,7 @@
     data() {
       return {
         sidebarBackground: "green",
-        sideBarData: {
-          head: {
-            logo: require('@/assets/img/logo.png'),
-            name: 'iTranslateNow',
-            url: '/'
-          },
-          body: {
-            backgroundImage: require("@/assets/img/sidebar-2.jpg"),
-            items: [
-              {
-                alias: 'sections',
-                icon: 'view_module',
-                text: 'Sections',
-                path: '/sections'
-              },
-              {
-                alias: 'translations',
-                icon: 'translate',
-                text: 'Translations',
-                path: '/translations',
-              },
-              {
-                alias: 'users',
-                icon: 'people',
-                text: 'Users',
-                path: '/users',
-              },
-              {
-                alias: 'white-labels',
-                icon: 'dvr',
-                text: 'White labels',
-                path: '/white-labels',
-              }
-            ]
-          }
-        }
+        sideBarData: null,
       };
     },
     async mounted() {
@@ -85,6 +50,43 @@
         applicationAlias: this.$route.params.applicationAlias,
         includes: []
       });
+
+      this.sideBarData = {
+        head: {
+          logo: require('@/assets/img/logo.png'),
+          name: 'iTranslateNow',
+          url: '/'
+        },
+        body: {
+          backgroundImage: require("@/assets/img/sidebar-2.jpg"),
+          items: [
+            {
+              alias: 'sections',
+              icon: 'view_module',
+              text: 'Sections',
+              path: `/application/${this.application.alias}/sections`
+            },
+            {
+              alias: 'translations',
+              icon: 'translate',
+              text: 'Translations',
+              path: `/application/${this.application.alias}/translations`,
+            },
+            {
+              alias: 'users',
+              icon: 'people',
+              text: 'Users',
+              path: `/application/${this.application.alias}/users`,
+            },
+            {
+              alias: 'white-labels',
+              icon: 'dvr',
+              text: 'White labels',
+              path: `/application/${this.application.alias}/white-labels`,
+            }
+          ]
+        }
+      }
 
       if (this.error) {
         if (this.error?.response?.status === 404) {

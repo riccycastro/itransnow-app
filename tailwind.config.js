@@ -14,9 +14,10 @@ module.exports = {
       width: {
         '59': '14.75rem',
         '65': '16.25rem',
-        'content': 'calc(100% - 240px)'
+        'content': 'calc(100% - 260px)'
       },
       maxWidth: {
+        '5xs': '4rem',
         '288': '72rem',
       },
       minWidth: {
